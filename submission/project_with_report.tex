@@ -1,0 +1,2214 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{CITS3401 - Data Warehousing - Project 2: Pattern Discovery and Building Predictive Models of Mobile Phone Price}
+    
+    
+    
+    \author{Max Matthews, Frinze Erin Lapuz (22711649)}
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{pattern-discovery-and-building-predictive-models}{%
+\section{Pattern Discovery and Building Predictive
+Models}\label{pattern-discovery-and-building-predictive-models}}
+
+\hypertarget{project-2---cits-3401}{%
+\subsubsection{PROJECT 2 - CITS 3401}\label{project-2---cits-3401}}
+
+\hypertarget{authors-frinze-erin-lapuz-22711649-and-max-matthews-21506225author-max-matthews-and-frinze-erin-lapuz-22711649}{%
+\paragraph{Authors: Frinze Erin Lapuz (22711649) and Max Matthews
+(21506225)Author: Max Matthews and Frinze Erin Lapuz
+(22711649)}\label{authors-frinze-erin-lapuz-22711649-and-max-matthews-21506225author-max-matthews-and-frinze-erin-lapuz-22711649}}
+
+    \hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+For this project, we would like to use the mobile price classification
+dataset as the source of data. The target of this project is to predict
+whether the price of a mobile phone is high or not.
+
+    \hypertarget{tasks-and-scope}{%
+\subsubsection{Tasks and Scope}\label{tasks-and-scope}}
+
+\hypertarget{data-cleaning-and-analysis}{%
+\paragraph{1) Data cleaning and
+analysis}\label{data-cleaning-and-analysis}}
+
+\begin{itemize}
+\tightlist
+\item
+  Read through the table and the table column descriptions. Understand
+  the meaning of each column in the table.
+\item
+  Distinguish the type of each attribute (e.g., nominal/categorical,
+  numerical). You may need to discretise some attributes, when
+  completing Task 2, 3 or 4.
+\item
+  Determine whether an attribute is relevant to your target variable.
+  You may remove some attributes if they are not helpful for Task 2, 3,
+  or 4. You might create separate data files for Task 2, 3 and 4.
+\item
+  Identify inconsistent data and take actions using the knowledge you
+  have learnt in this unit.
+\end{itemize}
+
+\hypertarget{association-rule-mining}{%
+\paragraph{2) Association rule mining}\label{association-rule-mining}}
+
+\begin{itemize}
+\tightlist
+\item
+  Select a subset of the attributes (or all the attributes) to mine
+  interesting patterns. To rank the degree of interesting of the rules
+  extracted, use support, confidence and lift.
+\item
+  Explain the top k rules (according to lift or confidence) that have
+  the ``price\_category'' on the right-hand-side, where k \textgreater=
+  1.
+\item
+  Explain the meaning of the k rules in plain English.
+\item
+  Given the rules, what recommendation will you give to a company
+  willing to design a high price mobile phone (e.g., should the mobile
+  phone equipped with bluetooth)?
+\end{itemize}
+
+\hypertarget{classification}{%
+\paragraph{3) Classification}\label{classification}}
+
+\begin{itemize}
+\tightlist
+\item
+  Use the ``price\_category'' as the target variable and train two
+  classifiers based on different machine learning algorithms
+  (e.g.~classifier 1 based on a decision tree; classifier 2 based on
+  SVMs).
+\item
+  Evaluate the classifiers based on some evaluation metrics (e.g.,
+  accuracy). You may use 10-fold cross-validation for the evaluation.
+\end{itemize}
+
+\hypertarget{clustering}{%
+\paragraph{4) Clustering}\label{clustering}}
+
+\begin{itemize}
+\tightlist
+\item
+  Run a clustering algorithm of your choice and explain how the results
+  can be interpreted with respect to the target variable.
+\end{itemize}
+
+\hypertarget{data-reduction}{%
+\paragraph{5) Data reduction}\label{data-reduction}}
+
+\begin{itemize}
+\tightlist
+\item
+  Perform numerosity reduction and perform attribute reduction.
+\item
+  Train the two classifiers in Task 3 on the reduced data.
+\item
+  Answer the question: ``Does data reduction improve the quality of the
+  classifiers''?
+\end{itemize}
+
+\hypertarget{attribute-selection}{%
+\paragraph{6) Attribute selection}\label{attribute-selection}}
+
+\begin{itemize}
+\tightlist
+\item
+  Select the top-10 most important attributes manually based on your
+  understanding of the problem; select the top-10 most important
+  attributes based on Information Gain.
+\item
+  Which attribute selection method is better and why?
+\end{itemize}
+
+\hypertarget{marking-scheme}{%
+\paragraph{\texorpdfstring{\textbf{Marking
+Scheme}}{Marking Scheme}}\label{marking-scheme}}
+
+\begin{verbatim}
+[5 marks]   Explain the data processing operations (e.g., remove some attributes and action on inconsistent data) that you have done.
+[5 marks]   Explain and interpret the top k association rules mined; based on the association rules, provide a recommendation for a company willing 
+            to design a high price mobile phone.
+[5 marks]   Explain how you train the classifiers and your evaluation results.
+[5 marks]   Clustering and interpretation of the clustering result (with respect to the target variable)
+[5 marks]   Explain the data reduction you have performed; compare the classifiers trained on reduced data with the classifiers trained on the original data.
+[5 marks]   Your answer to Task 6.
+\end{verbatim}
+
+    \hypertarget{tools-libraries-and-packages}{%
+\subsubsection{Tools, Libraries and
+Packages}\label{tools-libraries-and-packages}}
+
+Python - Using throughout the project for data cleaning, data
+processing, and modelling. Weka - Used a discrepency check (to ensure we
+receive the same values)
+
+\hypertarget{imports}{%
+\paragraph{Imports}\label{imports}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{pip} \PY{n}{install} \PY{n}{pandas}\PY{o}{\PYZhy{}}\PY{n}{profiling}\PY{p}{[}\PY{n}{notebook}\PY{p}{]} \PY{n}{mlxtend} \PY{n}{clusteval} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{user}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Note: you may need to restart the kernel to use updated packages.
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'C:\textbackslash{}Users\textbackslash{}Max' is not recognized as an internal or external command,
+operable program or batch file.
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{102}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Data analysis, manipulation, and profiling}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{from} \PY{n+nn}{pandas\PYZus{}profiling} \PY{k+kn}{import} \PY{n}{ProfileReport}
+
+\PY{c+c1}{\PYZsh{} Visualization}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{axes.facecolor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.9}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Association Rule Mining}
+\PY{k+kn}{from} \PY{n+nn}{mlxtend}\PY{n+nn}{.}\PY{n+nn}{frequent\PYZus{}patterns} \PY{k+kn}{import} \PY{n}{apriori}\PY{p}{,} \PY{n}{association\PYZus{}rules}
+
+\PY{c+c1}{\PYZsh{} Training Setups}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k+kn}{import} \PY{n}{Pipeline}
+
+\PY{c+c1}{\PYZsh{} Preprocessings and Attribute Selections}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{impute} \PY{k+kn}{import} \PY{n}{SimpleImputer}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k+kn}{import} \PY{n}{StandardScaler}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k+kn}{import} \PY{n}{PCA}
+\PY{c+c1}{\PYZsh{} selection of best attributes from by default using f\PYZhy{}score https://scikit\PYZhy{}learn.org/stable/modules/generated/sklearn.feature\PYZus{}selection.f\PYZus{}classif.html}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{SelectKBest}\PY{p}{,} \PY{n}{mutual\PYZus{}info\PYZus{}classif}\PY{p}{,} \PY{n}{f\PYZus{}classif}
+
+\PY{c+c1}{\PYZsh{} Classifiers}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k+kn}{import} \PY{n}{DecisionTreeClassifier}\PY{p}{,} \PY{n}{plot\PYZus{}tree}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k+kn}{import} \PY{n}{SVC} \PY{c+c1}{\PYZsh{} Support Vector Machine Classifier}
+
+\PY{n}{RANDOM\PYZus{}STATE} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} Used as a seed value}
+\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION} \PY{o}{=} \PY{l+m+mi}{10}
+\PY{n}{NUMBER\PYZus{}OF\PYZus{}BEST\PYZus{}HYPER\PYZus{}PARAMS\PYZus{}TO\PYZus{}SHOW} \PY{o}{=} \PY{l+m+mi}{5}
+
+\PY{c+c1}{\PYZsh{} Optimisation}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{GridSearchCV} \PY{c+c1}{\PYZsh{} tuning the model}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{cross\PYZus{}validate}
+
+\PY{c+c1}{\PYZsh{} Clustering}
+\PY{k+kn}{from} \PY{n+nn}{clusteval} \PY{k+kn}{import} \PY{n}{clusteval}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k+kn}{import} \PY{n}{MinMaxScaler}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k+kn}{import} \PY{n}{KMeans}\PY{p}{,} \PY{n}{AgglomerativeClustering}
+\PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k+kn}{import} \PY{n}{hierarchy}
+\PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{cluster}\PY{n+nn}{.}\PY{n+nn}{hierarchy} \PY{k+kn}{import} \PY{n}{dendrogram}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+
+    \hypertarget{data-cleaning-and-profiling}{%
+\section{Data Cleaning and
+Profiling}\label{data-cleaning-and-profiling}}
+
+There are many different ways to perform data cleaning and profiling.
+For this process (in Project 2) we will be using an IPython Notebook,
+for the following reasons:
+
+\begin{itemize}
+\tightlist
+\item
+  The anaylsts are proficient in Python;
+\item
+  The report can be integrated with code for specific sections of the
+  analysis;
+\item
+  The processes / procedures are highly repeatable and easily automated
+  using scripts;
+\item
+  Data exploration and anomaly detection can easily be performed through
+  a variety of visualizations (charts, graphs, tables, etc);
+\end{itemize}
+
+The packages that will be used are built-in the Anaconda package, except
+for \texttt{pandas\_profiling} (from
+https://github.com/pandas-profiling/pandas-profiling, which we used for
+doing detailed exploratory analysis of data), and \texttt{mlxtend} (from
+https://github.com/rasbt/mlxtend , which we used in our association rule
+mining). Data profiling is important to measure the quality of data,
+which in turn assists greately in the determination of data
+anomalies/inconsistencies, and as such, necessary data transformations.
+The data profiling reports will be generated with Pandas Profiling.
+Portions of these reports will be referenced in our project discussion,
+with the resource/s (data profiling reports) attached as an Appendix.
+
+    \hypertarget{profiling-report}{%
+\subsubsection{Profiling Report}\label{profiling-report}}
+
+With the imported metadata, and raw dataset, we can now populate and
+generate a \texttt{pandas\_profiling} report. For reference, see
+\texttt{Raw\ Data\ Profiling\ Report}, in the apendix.
+
+    
+
+    \hypertarget{initial-raw-import-data-interpretation-and-cleaning-strategy}{%
+\subsection{Initial (raw import data) Interpretation, and Cleaning
+Strategy}\label{initial-raw-import-data-interpretation-and-cleaning-strategy}}
+
+Here, we will walk through the fields presented in the profile of the
+raw data, and make the appropriate alterations / assumptions / cleaning
+steps. In the event of changes, we will apply them to the
+\texttt{staging\_data} dataframe, and \texttt{staging\_metadata}
+dictionary.
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{id}{%
+\paragraph{\texorpdfstring{\texttt{ID}}{ID}}\label{id}}
+
+The id field is unique, and it seems to be a good candidate for primary
+key. Note, we will NOT be using ID for any analysis, as it is an
+irrelevant attribute.
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{battery_power}{%
+\paragraph{\texorpdfstring{\texttt{battery\_power}}{battery\_power}}\label{battery_power}}
+
+The battery\_power has 1094 distinct counts, approximately half the
+distinct counts of id. This data is continuous, and as such, we shall
+discretise for the later association rule mining.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing battery\PYZus{}power}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{battery\PYZus{}power}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{blue}{%
+\paragraph{\texorpdfstring{\texttt{blue}}{blue}}\label{blue}}
+
+This (``has bluetooth'') field is a categorical data type
+(\emph{boolean}), expressed (poorly) in string-form with
+inconsistencies. We observe 10 distinct values that all refer to either
+the phone has bluetooth (True) or not (False). The inconsistencies must
+be attributed to an appropriate boolean value, and as such, this field
+needs to be cleaned.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}bluetooth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{string\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{blue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}bluetooth}\PY{l+s+s2}{\PYZdq{}}  \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{clock_speed}{%
+\paragraph{\texorpdfstring{\texttt{clock\_speed}}{clock\_speed}}\label{clock_speed}}
+
+The clock\_speed attribute has 26 distinct values for which 413 of the
+records have value 0.5. Hence the distribution of values in the
+histogram is right skewed. This data is continuous, and will also need
+to be discretised if we wish to use it in the association rule mining
+process.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing clock\PYZus{}speed}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{clock\PYZus{}speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{dual_sim}{%
+\paragraph{\texorpdfstring{\texttt{dual\_sim}}{dual\_sim}}\label{dual_sim}}
+
+The dual\_sim attirbute is similar to \texttt{blue} attribute wherein it
+is a categorical datatype (\emph{boolean}) with inconsistencies sppread
+to 10 string distinct values. Hence, the procedure of cleaning will be
+similar.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{string\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}  \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{fc}{%
+\paragraph{\texorpdfstring{\texttt{fc}}{fc}}\label{fc}}
+
+The (\emph{Front Camera}) \texttt{fc} attribute has 474 (23.7\% of the
+dataset) zero values. We will be interpreting the zero values as ``this
+phone does not have a front camera'' , (please see the
+\textbf{\emph{Data Privacy Disclaimer}} below). In addition, this
+continous data will be discretised, for later (association rule mining)
+purposes, with the zero values as a seperate category.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{front\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{front\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{front\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing front\PYZus{}cam\PYZus{}resolution}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{four_g}{%
+\paragraph{\texorpdfstring{\texttt{four\_g}}{four\_g}}\label{four_g}}
+
+The \texttt{four\_g} attribute is a categorical (\emph{boolean})
+attribute indicated by ``yes=1'' and ``no=0'' of having 4G capability.
+For consistency, this will be converted from numeric (0 or 1) to boolean
+type.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{int\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{int_memory}{%
+\paragraph{\texorpdfstring{\texttt{int\_memory}}{int\_memory}}\label{int_memory}}
+
+The \texttt{int\_memory} (\emph{Internal Memory}) attribute has 63
+distinct values that vary as shown in the \emph{profiling-report}
+histogram. There are no records of phones having \texttt{0\ GB} as the
+storage which would be expected, as phones would require a minimum
+amount of memory to host their respective operating software/s. This
+continuous data will be discretised for later use in the association
+rule mining.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int\PYZus{}memory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing int\PYZus{}memory}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{m_dep}{%
+\paragraph{\texorpdfstring{\texttt{m\_dep}}{m\_dep}}\label{m_dep}}
+
+The \texttt{m\_dep} (\emph{Mobile Depth}) attribute has 10 distinct
+values that vary as shown in the \emph{profiling-report} histogram. The
+minimum values do not make much sense, however, please refer to the
+\textbf{\emph{Data Privacy Disclaimer}} below. In addition, this
+continuous data will be discretised for later (association rule mining)
+purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m\PYZus{}dep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{m\PYZus{}dep}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}  \PY{c+c1}{\PYZsh{} Rename metadata}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing mobile\PYZus{}depth}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{mobile_wt}{%
+\paragraph{\texorpdfstring{\texttt{mobile\_wt}}{mobile\_wt}}\label{mobile_wt}}
+
+The \texttt{mobile\_wt} (\emph{Mobile Weight}) attribute has 121
+distinct values that varies as shown in the \emph{profiling-report}
+histogram. The minimum is \texttt{80} and the maximum is \texttt{200},
+measured in presumably grams. This continuous data will be discritised
+for later association rule mining purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} 
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}wt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}weight}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing mobile\PYZus{}weight}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{n_cores}{%
+\paragraph{\texorpdfstring{\texttt{n\_cores}}{n\_cores}}\label{n_cores}}
+
+The \texttt{n\_cores} (\emph{Number of Cores}) attribute looks almost
+uniform in the range \texttt{1-8}. This is categorical (numerical) data.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number\PYZus{}of\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number\PYZus{}of\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{pc}{%
+\paragraph{\texorpdfstring{\texttt{pc}}{pc}}\label{pc}}
+
+The \texttt{pc} (\emph{Primary Camera Resolution}) attribute has 21
+distinct values with 101 (5.1\% of the dataset) with zero values. We
+will be interpreting the zero values as ``this phone does not have a
+primary camera'', (please see the \textbf{\emph{Data Privacy
+Disclaimer}} below). In addition, this continous data will be
+discretised, for later (association rule mining) purposes, with the zero
+values as a seperate category.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pc}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing primary\PYZus{}cam\PYZus{}resolution}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{px_height}{%
+\paragraph{\texorpdfstring{\texttt{px\_height}}{px\_height}}\label{px_height}}
+
+The \texttt{px\_height} attribute has a right skewed normal distribution
+with a mean value of \texttt{645} pixels and \texttt{443.79} standard
+deviation in the range \texttt{0-1960}. We will be interpreting the two
+zero values as \emph{extremely small, but not zero} values, (please see
+the \textbf{\emph{Data Privacy Disclaimer}} below). This notion also
+applies to the nonsensicle low values. In addition, this continous data
+will be discretised, for later (association rule mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing px\PYZus{}height}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{px_width}{%
+\paragraph{\texorpdfstring{\texttt{px\_width}}{px\_width}}\label{px_width}}
+
+The \texttt{px\_width} attribute has a varying distribution of values in
+the range 500 to 1998. This continous data will be discretised, for
+later (association rule mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing px\PYZus{}width}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{ram}{%
+\paragraph{\texorpdfstring{\texttt{ram}}{ram}}\label{ram}}
+
+The \texttt{ram} attribute has a varying distribution of values in the
+range \texttt{256-3998}. This continous data will be discretised, for
+later (association rule mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing ram}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{sc_h}{%
+\paragraph{\texorpdfstring{\texttt{sc\_h}}{sc\_h}}\label{sc_h}}
+
+The \texttt{sc\_h} (\emph{Screen Height}) attributes has 15 distinct
+values with a range of \texttt{5-19}. This continous data will be
+discretised, for later (association rule mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sc\PYZus{}h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sc\PYZus{}h}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing screen\PYZus{}height}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{sc_w}{%
+\paragraph{\texorpdfstring{\texttt{sc\_w}}{sc\_w}}\label{sc_w}}
+
+The \texttt{sc\_w} (\emph{Screen Width}) attribute has 19 distinct
+values with a range of \texttt{0-18} with 180 zero values. These zero
+values do not make \emph{real world sense}, and so we will be
+interpreting the zero values as representatives of sensible, lower
+values (please see the \textbf{\emph{Data Privacy Disclaimer}} below).
+This continous data will be discretised, for later (association rule
+mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sc\PYZus{}w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sc\PYZus{}w}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{} Discretizing screen\PYZus{}width}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{talk_time}{%
+\paragraph{\texorpdfstring{\texttt{talk\_time}}{talk\_time}}\label{talk_time}}
+
+The \texttt{talk\_time} attribute has 19 distinct values with a range
+\texttt{2-20}. This continous data will be discretised, for later
+(association rule mining) purposes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Discretizing talk\PYZus{}time}
+\PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretized\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{talk\PYZus{}time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{three_g}{%
+\paragraph{\texorpdfstring{\texttt{three\_g}}{three\_g}}\label{three_g}}
+
+The \texttt{three\_g} attribute is similar to the \texttt{blue} and
+\texttt{dual\_sim} attribute wherein it is a categorical
+(\emph{boolean}) datatype, with inconsistencies spread to 10 (string)
+distinct values. Hence, the cleaning procedure will be similar.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{string\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{touch_screen}{%
+\paragraph{\texorpdfstring{\texttt{touch\_screen}}{touch\_screen}}\label{touch_screen}}
+
+The \texttt{touch\_screen} attribute is a categorical (\emph{boolean})
+attribute ,similar to the representation of \texttt{four\_g}. Hence, the
+cleaning procedure is similar.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{int\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{wifi}{%
+\paragraph{\texorpdfstring{\texttt{wifi}}{wifi}}\label{wifi}}
+
+The \texttt{wifi} attirbute is similar to
+\texttt{blue},\texttt{dual\_sim} and \texttt{three\_g} attribute wherein
+it is a boolean datatype with inconsistencies spread to 10 (string)
+distinct values. Hence, the procedure of cleaning will be similar.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}wifi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wifi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{string\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wifi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}wifi}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{price_category}{%
+\paragraph{\texorpdfstring{\texttt{price\_category}}{price\_category}}\label{price_category}}
+
+The \texttt{price\_category} attribute is a categorical (\emph{boolean})
+attribute, similar to the representation of \texttt{four\_g} and
+\texttt{touch\_screen}. Hence, the cleaning procedure is similar.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{int\PYZus{}to\PYZus{}bool}\PY{p}{)}
+\PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{price\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} Rename metadata}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+    \hypertarget{data-privacy-disclaimer}{%
+\subsubsection{\texorpdfstring{\textbf{\emph{Data Privacy
+Disclaimer}}}{Data Privacy Disclaimer}}\label{data-privacy-disclaimer}}
+
+The data provided (\texttt{mobile\_prices.csv}) has had some of it's
+\emph{real world} values altered, for privacy/legal reasons. As such,
+decisions were made on how to best interpret unusual / nonsensicle
+\texttt{zero} values.
+
+\hypertarget{appropriate-zero-values-primary_camera_resolution-front_camera_resolution}{%
+\paragraph{\texorpdfstring{\textbf{Appropriate zero values}
+(\texttt{primary\_camera\_resolution},
+\texttt{front\_camera\_resolution})}{Appropriate zero values (primary\_camera\_resolution, front\_camera\_resolution)}}\label{appropriate-zero-values-primary_camera_resolution-front_camera_resolution}}
+
+Zero values for these attributes can be observed as the phone not having
+the attribute. This makes sense, as not all phones have a front camera,
+or primary camera.
+
+\hypertarget{inappropriate-zero-values-px_height-screen_width}{%
+\paragraph{\texorpdfstring{Inappropriate zero values
+(\texttt{px\_height},
+\texttt{screen\_width})}{Inappropriate zero values (px\_height, screen\_width)}}\label{inappropriate-zero-values-px_height-screen_width}}
+
+Zero values for these attributes can be observed as \textbf{values
+altered for privacy reasons}, and should be interpreted as a
+representation of a low value (but \textbf{NOT} zero).
+
+    \hypertarget{set-cleaned_data}{%
+\subsubsection{\texorpdfstring{Set
+\texttt{cleaned\_data}}{Set cleaned\_data}}\label{set-cleaned_data}}
+
+\begin{itemize}
+\tightlist
+\item
+  Declare our \texttt{cleaned\_data}, \texttt{discretised\_data} and
+  \texttt{cleaned\_metadata};
+\item
+  Generate ``clean'' pandas-profiling report;
+\item
+  Export these to files;
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{cleaned\PYZus{}data} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{battery\PYZus{}power}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}bluetooth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{clock\PYZus{}speed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{front\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int\PYZus{}memory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}weight}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number\PYZus{}of\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{talk\PYZus{}time}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}wifi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}
+                            \PY{p}{]}\PY{p}{]}
+\PY{n}{discretised\PYZus{}data} \PY{o}{=} \PY{n}{staging\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{battery\PYZus{}power\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}bluetooth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{clock\PYZus{}speed\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}dual\PYZus{}sim}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{front\PYZus{}cam\PYZus{}resolution\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int\PYZus{}memory\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}weight\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number\PYZus{}of\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}height\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}width\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ram\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{talk\PYZus{}time\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}three\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}touch\PYZus{}screen}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}wifi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}
+                            \PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{updated-metadata}{%
+\paragraph{Updated Metadata:}\label{updated-metadata}}
+
+    \hypertarget{pandas-profiling-cleaned_data-and-discretised_data-reports}{%
+\subsubsection{\texorpdfstring{Pandas-Profiling (\texttt{cleaned\_data}
+and \texttt{discretised\_data})
+Reports}{Pandas-Profiling (cleaned\_data and discretised\_data) Reports}}\label{pandas-profiling-cleaned_data-and-discretised_data-reports}}
+
+See \texttt{Clean\ Data\ Profiling\ Report}, and
+\texttt{Discretised\ Data\ Profiling\ Report} (in appendix).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Sort all the columns based on value (this will determine the Ordinal Encoder)}
+
+\PY{n}{discretised\PYZus{}ordered\PYZus{}data} \PY{o}{=} \PY{n}{discretised\PYZus{}data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{discretised\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+    \PY{k}{if} \PY{n}{column} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}expensive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{n}{unique\PYZus{}sorted\PYZus{}values} \PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{discretised\PYZus{}data}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{dictionary} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{numeric\PYZus{}value} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{unique\PYZus{}sorted\PYZus{}values}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{dictionary}\PY{p}{[}\PY{n}{unique\PYZus{}sorted\PYZus{}values}\PY{p}{[}\PY{n}{numeric\PYZus{}value}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{numeric\PYZus{}value}
+        \PY{n}{discretised\PYZus{}ordered\PYZus{}data}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{=} \PY{n}{discretised\PYZus{}data}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{value}\PY{p}{:} \PY{n}{dictionary}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{value}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+    
+\PY{n}{discretised\PYZus{}ordered\PYZus{}data}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{32}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{melted\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{discretised\PYZus{}ordered\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{discretised\PYZus{}ordered\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ordinal Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{)}
+\PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{FacetGrid}\PY{p}{(}\PY{n}{melted\PYZus{}data}\PY{p}{,} \PY{n}{col}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variable}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{col\PYZus{}wrap}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+\PY{n}{g}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ordinal Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{shade}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{g}\PY{o}{.}\PY{n}{set\PYZus{}axis\PYZus{}labels}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ordinal Values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mystery y\PYZhy{}axis}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This shows the relative frequency graph of the discretised data, in
+ordinal form, split by the \texttt{is\_expensive} field. The variable
+\texttt{ram\_category} displays a strong variance, regarding its
+seperation with the \texttt{is\_expensive} field.
+
+    
+
+    \hypertarget{association-rule-mining}{%
+\section{Association rule mining}\label{association-rule-mining}}
+
+The idea of association rule mining (ARM) is to gather the
+characteristics that occurs frequently. Our approach is to take the
+characteristics of each of the phone atrributes (in the record) with the
+following strategy:
+
+\begin{itemize}
+\tightlist
+\item
+  keep the current cleaned data especially the boolean values;
+\item
+  discretise the numeric values;
+\end{itemize}
+
+Before the ``apriori'' runs, the data should be in the form similar to:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+has\_bluetooth & has\_dual\_sim & battery\_power\_0-100 &
+\ldots{}\tabularnewline
+\midrule
+\endhead
+True & False & True & True\tabularnewline
+True & True & False & True\tabularnewline
+False & True & True & False\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{arm-pre-processing}{%
+\subsubsection{ARM Pre-Processing}\label{arm-pre-processing}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} restructuring cleaned\PYZus{}data for association rule mining}
+\PY{n}{ARM\PYZus{}data} \PY{o}{=} \PY{n}{discretised\PYZus{}data}
+
+\PY{c+c1}{\PYZsh{} Boolean Tables}
+\PY{n}{ARM\PYZus{}structured\PYZus{}data} \PY{o}{=} \PY{n}{ARM\PYZus{}data}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ARM\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n}{ARM\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)} \PY{k}{if} \PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{]}\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} Discretise data}
+\PY{n}{non\PYZus{}boolean\PYZus{}values} \PY{o}{=} \PY{n}{ARM\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{n}{item}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{ARM\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n}{ARM\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)} \PY{k}{if} \PY{n}{item}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{!=} \PY{n}{np}\PY{o}{.}\PY{n}{bool}\PY{p}{]}\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} Adding extra columns from discretise data into columns}
+\PY{k}{for} \PY{n}{non\PYZus{}boolean\PYZus{}column} \PY{o+ow}{in} \PY{n}{non\PYZus{}boolean\PYZus{}values}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+    \PY{n}{unique\PYZus{}values\PYZus{}in\PYZus{}column} \PY{o}{=} \PY{n}{ARM\PYZus{}data}\PY{p}{[}\PY{n}{non\PYZus{}boolean\PYZus{}column}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+    \PY{k}{for} \PY{n}{category\PYZus{}name} \PY{o+ow}{in} \PY{n}{unique\PYZus{}values\PYZus{}in\PYZus{}column}\PY{p}{:}
+        
+        \PY{c+c1}{\PYZsh{} Assign true if the current category name matches the data}
+        \PY{n}{ARM\PYZus{}structured\PYZus{}data}\PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{non\PYZus{}boolean\PYZus{}column}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{category\PYZus{}name}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ARM\PYZus{}data}\PY{p}{[}\PY{n}{non\PYZus{}boolean\PYZus{}column}\PY{p}{]}\PY{o}{==}\PY{n}{category\PYZus{}name}
+        
+\PY{n}{ARM\PYZus{}structured\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+   has\_bluetooth  has\_dual\_sim  has\_four\_g  has\_three\_g  has\_touch\_screen  \textbackslash{}
+0          False         False       False        False             False
+1           True          True        True         True              True
+2           True          True        True         True              True
+
+   has\_wifi  is\_expensive  battery\_power\_category\_(499.502, 875.25]  \textbackslash{}
+0      True         False                                      True
+1     False         False                                     False
+2     False         False                                      True
+
+   battery\_power\_category\_(875.25, 1249.5]  \textbackslash{}
+0                                    False
+1                                     True
+2                                    False
+
+   battery\_power\_category\_(1623.75, 1998.0]  {\ldots}  \textbackslash{}
+0                                     False  {\ldots}
+1                                     False  {\ldots}
+2                                     False  {\ldots}
+
+   screen\_height\_category\_(4.984999999999999, 8.5]  \textbackslash{}
+0                                            False
+1                                            False
+2                                            False
+
+   screen\_height\_category\_(12.0, 15.5]  screen\_width\_category\_(4.5, 9.0]  \textbackslash{}
+0                                False                              True
+1                                False                             False
+2                                False                             False
+
+   screen\_width\_category\_(-0.019, 4.5]  screen\_width\_category\_(9.0, 13.5]  \textbackslash{}
+0                                False                              False
+1                                 True                              False
+2                                 True                              False
+
+   screen\_width\_category\_(13.5, 18.0]  talk\_time\_category\_(15.5, 20.0]  \textbackslash{}
+0                               False                             True
+1                               False                            False
+2                               False                            False
+
+   talk\_time\_category\_(6.5, 11.0]  talk\_time\_category\_(11.0, 15.5]  \textbackslash{}
+0                           False                            False
+1                            True                            False
+2                            True                            False
+
+   talk\_time\_category\_(1.981, 6.5]
+0                            False
+1                            False
+2                            False
+
+[3 rows x 69 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    This is what the data looks like (above), after pre-processing for
+association rule mining.
+
+    \hypertarget{frequent-pattern-mining-apriori-algorithm}{%
+\subsubsection{Frequent Pattern Mining: Apriori
+Algorithm}\label{frequent-pattern-mining-apriori-algorithm}}
+
+\begin{itemize}
+\item
+  Explination (apriori algo)
+\item
+  Minimum support (expln) -\textgreater{} min amount for a rule to be
+  considered a frequent (our case 10\%). Probably not something that is
+  good, but putting min support low, allows us to encompass ALL the
+  rules (there are too many rules), whilst also allowing us to filter
+  rules. If we set the support too high, then the program mines a
+  stricter, limited amount of rules.
+\item
+  Lift (expln)
+\item
+  Confidence (expln)
+\item
+  Belo
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{35}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} This defines what is considered as a minimum item}
+\PY{n}{MINIMUM\PYZus{}SUPPORT} \PY{o}{=} \PY{l+m+mf}{0.1}
+\PY{n}{frequent\PYZus{}items} \PY{o}{=} \PY{n}{apriori}\PY{p}{(}\PY{n}{ARM\PYZus{}structured\PYZus{}data}\PY{p}{,}\PY{n}{min\PYZus{}support}\PY{o}{=}\PY{n}{MINIMUM\PYZus{}SUPPORT}\PY{p}{,}\PY{n}{use\PYZus{}colnames}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{frequent\PYZus{}items}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Processing 570 combinations | Sampling itemset size 5 4
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{35}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+     support                                           itemsets
+0     0.4950                                    (has\_bluetooth)
+1     0.5095                                     (has\_dual\_sim)
+2     0.5215                                       (has\_four\_g)
+3     0.7615                                      (has\_three\_g)
+4     0.5030                                 (has\_touch\_screen)
+..       {\ldots}                                                {\ldots}
+712   0.1165  (has\_wifi, has\_four\_g, has\_three\_g, screen\_wid{\ldots}
+713   0.1165  (has\_four\_g, is\_expensive, has\_three\_g, ram\_ca{\ldots}
+714   0.1000  (has\_four\_g, clock\_speed\_category\_(0.497, 1.12{\ldots}
+715   0.1100  (px\_height\_category\_(-1.9609999999999999, 490{\ldots}
+716   0.1050  (px\_height\_category\_(-1.9609999999999999, 490{\ldots}
+
+[717 rows x 2 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    The (above) table demonstrates the item sets that meet the minimum
+defined support (\texttt{0.1}).
+
+    \hypertarget{rules-by-minimum-confidence}{%
+\subsubsection{Rules by `Minimum
+Confidence'}\label{rules-by-minimum-confidence}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{94}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{MINIMUM\PYZus{}CONFIDENCE\PYZus{}THRESHOLD} \PY{o}{=} \PY{l+m+mf}{0.20} \PY{c+c1}{\PYZsh{} this is the minimum confidence threshold to mine}
+\PY{n}{rules\PYZus{}by\PYZus{}confidence} \PY{o}{=} \PY{n}{association\PYZus{}rules}\PY{p}{(}\PY{n}{frequent\PYZus{}items}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confidence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}threshold}\PY{o}{=}\PY{n}{MINIMUM\PYZus{}CONFIDENCE\PYZus{}THRESHOLD}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Get all the rules that has mobile price}
+\PY{n}{rules} \PY{o}{=} \PY{n}{rules\PYZus{}by\PYZus{}confidence}\PY{p}{[}\PY{n}{rules\PYZus{}by\PYZus{}confidence}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{consequents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}expensive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{issubset}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confidence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\PY{n}{rules}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{94}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                                            antecedents  \textbackslash{}
+1553        (has\_four\_g, ram\_category\_(3062.5, 3998.0])
+2225        (has\_four\_g, ram\_category\_(3062.5, 3998.0])
+2221  (has\_four\_g, has\_three\_g, ram\_category\_(3062.5{\ldots}
+1883  (has\_touch\_screen, ram\_category\_(3062.5, 3998.0])
+1758       (has\_three\_g, ram\_category\_(3062.5, 3998.0])
+1889          (has\_wifi, ram\_category\_(3062.5, 3998.0])
+1021     (has\_bluetooth, ram\_category\_(3062.5, 3998.0])
+573                     (ram\_category\_(3062.5, 3998.0])
+1231      (ram\_category\_(3062.5, 3998.0], has\_dual\_sim)
+1761                    (ram\_category\_(3062.5, 3998.0])
+
+                      consequents  antecedent support  consequent support  \textbackslash{}
+1553               (is\_expensive)              0.1360              0.2500
+2225  (has\_three\_g, is\_expensive)              0.1360              0.1925
+2221               (is\_expensive)              0.1360              0.2500
+1883               (is\_expensive)              0.1215              0.2500
+1758               (is\_expensive)              0.1935              0.2500
+1889               (is\_expensive)              0.1285              0.2500
+1021               (is\_expensive)              0.1300              0.2500
+573                (is\_expensive)              0.2510              0.2500
+1231               (is\_expensive)              0.1395              0.2500
+1761  (has\_three\_g, is\_expensive)              0.2510              0.1925
+
+      support  confidence      lift  leverage  conviction
+1553   0.1165    0.856618  3.426471  0.082500    5.230769
+2225   0.1165    0.856618  4.449962  0.090320    5.631795
+2221   0.1165    0.856618  3.426471  0.082500    5.230769
+1883   0.1030    0.847737  3.390947  0.072625    4.925676
+1758   0.1635    0.844961  3.379845  0.115125    4.837500
+1889   0.1080    0.840467  3.361868  0.075875    4.701220
+1021   0.1090    0.838462  3.353846  0.076500    4.642857
+573    0.2090    0.832669  3.330677  0.146250    4.482143
+1231   0.1150    0.824373  3.297491  0.080125    4.270408
+1761   0.1635    0.651394  3.383867  0.115183    2.316371
+\end{Verbatim}
+\end{tcolorbox}
+        
+    The above shows a min-confidence threshold of \texttt{0.65}, for the top
+10 k-rules, and \texttt{0.43} for the top 16 k-rules (we have omitted 6,
+however see
+\texttt{association\_rule\_mining/rules\_by\_confidence\_minimum\_threshold\_0.20.csv}
+for details.
+
+\hypertarget{what-are-k-rules}{%
+\subsubsection{\texorpdfstring{What are
+\texttt{K-rules}??}{What are K-rules??}}\label{what-are-k-rules}}
+
+K rules are the rules that defines a certain frequently appearing item
+set, to define another attribute/group of attributes.
+
+For example, according to the k=1 rule (sorted by \texttt{confidence}),
+if the phone has a \texttt{ram\_category} that belongs in the range
+\texttt{3062.5\ -\ 3998.0}, and ALSO has 4G
+(\texttt{has\_four\_g\ =\ True}), then there is a probability of 86\%
+that this phone is expensive (\texttt{is\_expensive\ =\ True}).
+
+It should also be noted that the top 16 rules (\texttt{k=16}) all have
+an antecedent that contains \texttt{ram\_category} in the aformentioned
+(\texttt{3062.5\ -\ 3998.0}) range.
+
+    Above shows the 17th to the 20th rules, it can be seen that the minimum
+confidence threshold confidence is \texttt{0.26}:
+
+\begin{itemize}
+\tightlist
+\item
+  These show rules that do not reference \texttt{ram\_category}, showing
+  other attributes that can predict is\_expensive
+\end{itemize}
+
+    \hypertarget{rules-by-lift}{%
+\subsubsection{Rules by `Lift'}\label{rules-by-lift}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{39}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{MINIMUM\PYZus{}LIFT\PYZus{}THRESHOLD} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
+
+\PY{n}{rules\PYZus{}by\PYZus{}lift} \PY{o}{=} \PY{n}{association\PYZus{}rules}\PY{p}{(}\PY{n}{frequent\PYZus{}items}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}threshold}\PY{o}{=}\PY{n}{MINIMUM\PYZus{}LIFT\PYZus{}THRESHOLD}\PY{p}{)}
+\PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{translated\PYZus{}lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+\PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}translated\PYZus{}lift\PYZus{}negative}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{translated\PYZus{}lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}
+\PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{absolute\PYZus{}value\PYZus{}of\PYZus{}translated\PYZus{}lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{translated\PYZus{}lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Get all the rules that has mobile price}
+\PY{n}{rules} \PY{o}{=} \PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{n}{rules\PYZus{}by\PYZus{}lift}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{consequents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}expensive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{issubset}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{absolute\PYZus{}value\PYZus{}of\PYZus{}translated\PYZus{}lift}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Above shows top (k-10) rules, and they all show the
+\texttt{ram\_category} as the antecedent.
+
+\begin{itemize}
+\item
+  Note: see
+  \texttt{association\_rule\_mining/rules\_by\_lift\_sorted\_by\_absolute\_value\_of\_translated\_lift.csv}
+  for the full list of rules.
+\item
+  top 1 k-rule states that when a phone has ram category in the range
+  \texttt{3062.5-\ 3998.0} and has four g, then there is a very strong
+  positive correlation that
+\item
+  explain that the rules are sorted by the
+  absolute\_value\_of\_translated\_lift in order to show sorted strength
+  of correlation
+\item
+  top 17 the rules here shows that ram category in the range
+  \texttt{3062.5-\ 3998.0}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  the 18th up to the 20th show different attribute with a lift that is
+  positively correlated, but not as strong as the previous the rules.
+\end{itemize}
+
+    \hypertarget{recommendation-from-arm}{%
+\subsection{Recommendation (from ARM)}\label{recommendation-from-arm}}
+
+\begin{itemize}
+\tightlist
+\item
+  According ARM
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  RAM category belong between \texttt{3062.5-\ 3998.0}
+\item
+  four G
+\item
+  touch scren
+\item
+  threeg
+\item
+  wifi
+\item
+  bluetooth
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  ranked by the strongest defining confidence
+\end{itemize}
+
+    \hypertarget{classification}{%
+\section{Classification}\label{classification}}
+
+\begin{itemize}
+\tightlist
+\item
+  brief explanation of classification
+\item
+  talk a little bit about cross validation of folds of 10 (avoiding
+  overfitting by using different parts of the data)
+\item
+  talk a little bit about the RANDOM\_STATE seeding (seed is defined to
+  prevent uncontrolled changing of results)
+\item
+  we will do it in Decision Tree and SVM
+\item
+  the metric that will be used is accuracy (is\_expensive and not
+  expensive is equal in weighting)
+\item
+  cleaned\_data of continuous (not discrete). Methods such as SVM and
+  Decision Trees are better at separating continuous attributes.
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{43}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Preprocessing of Cleaned Data}
+\PY{n}{learning\PYZus{}data} \PY{o}{=} \PY{n}{cleaned\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{target\PYZus{}data} \PY{o}{=} \PY{n}{learning\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+\PY{n}{feature\PYZus{}data} \PY{o}{=} \PY{n}{learning\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{103}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} classification helpers}
+
+\PY{k}{def} \PY{n+nf}{show\PYZus{}top\PYZus{}results}\PY{p}{(} \PY{n}{gridsearch}\PY{p}{,} \PY{n}{target\PYZus{}results}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{params}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}params}\PY{o}{=}\PY{l+m+mi}{5} \PY{p}{)}\PY{p}{:}
+    
+    \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{gridsearch}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{n}{target\PYZus{}results}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}params}\PY{p}{)}
+    
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{decision-tree}{%
+\subsection{Decision Tree}\label{decision-tree}}
+
+\begin{itemize}
+\tightlist
+\item
+  brief explanation what decision tree is decision on (gini index and
+  information gain)
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{98}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dt\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\item
+  Table above shows the top 5 hyper-parameters of the decision tree
+\item
+  talk about the best test score, the params (information gain) and
+  compare the result with gini index
+\end{itemize}
+
+    \hypertarget{support-vector-machine}{%
+\section{Support Vector Machine}\label{support-vector-machine}}
+
+    attribute reuction good with svm, not so great with the PCa
+-\textgreater{} Select k best\ldots{}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{48}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svm\PYZus{}classifier\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  Talk about the top 5 best algorithm with their difference in
+  parameters with emphasis on the best score
+\end{itemize}
+
+    \hypertarget{comparison-between-dc-and-svm}{%
+\subsection{Comparison between DC and
+SVM}\label{comparison-between-dc-and-svm}}
+
+\begin{itemize}
+\tightlist
+\item
+  Say that SVM is Chad between the two
+\item
+  in terms of reasoning, it may be because SVM is robust to noise and
+  outliers, hnece having a strong generalisation ability compared to a
+  decision tree that fits better??
+\end{itemize}
+
+    \hypertarget{clustering}{%
+\section{Clustering}\label{clustering}}
+
+\begin{itemize}
+\tightlist
+\item
+  explain a little bit about clustering
+\end{itemize}
+
+    \hypertarget{cluster-of-size-2}{%
+\subsection{Cluster of Size 2}\label{cluster-of-size-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  explain that we would expect that there are 2 groups and that is ideal
+  for comparison with \texttt{is\_expensive} field
+\end{itemize}
+
+\hypertarget{kmeans}{%
+\subsubsection{Kmeans}\label{kmeans}}
+
+\begin{itemize}
+\tightlist
+\item
+  short explanation of what kmeans
+\end{itemize}
+
+\hypertarget{confusion-table}{%
+\paragraph{Confusion Table}\label{confusion-table}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{52}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{kmeans\PYZus{}model} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}
+\PY{n}{kmeans\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}
+\PY{n}{kmeans\PYZus{}prediction} \PY{o}{=} \PY{n}{kmeans\PYZus{}model}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  explain that the clustering has 73.85\% accuracy wherein the other
+  26.15\% inaccuracy is attributed to kmeans predicting a phone
+  \texttt{is\_expensive} when it is not (false positive), and 0\% for
+  false negative.
+\end{itemize}
+
+    \hypertarget{aglomerative-hierahical-clustering}{%
+\subsubsection{Aglomerative Hierahical
+Clustering}\label{aglomerative-hierahical-clustering}}
+
+\begin{itemize}
+\tightlist
+\item
+  short explanation of what it is about
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{54}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ac\PYZus{}pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ac}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{AgglomerativeClustering}\PY{p}{(}\PY{n}{distance\PYZus{}threshold}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} Compute distances}
+\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{ac\PYZus{}pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{dendrogram}{%
+\paragraph{Dendrogram}\label{dendrogram}}
+
+    \begin{itemize}
+\tightlist
+\item
+  short explanation of the splitting of hierarchy into 4 parts, and also
+  mentioning the size of 2 clusters (219+514) + (507+760)
+\end{itemize}
+
+    \hypertarget{confusion-table}{%
+\paragraph{Confusion Table}\label{confusion-table}}
+
+    \begin{itemize}
+\tightlist
+\item
+  explain hierarchical is not as great as kmeans. Although kmeans is
+  sensitive to noise and outliers, agglometive is more sensitive as it
+  can classify an outlier as its own hierachy or category.
+\end{itemize}
+
+    \hypertarget{validation-of-two-cluster-size}{%
+\subsubsection{Validation of Two Cluster
+Size}\label{validation-of-two-cluster-size}}
+
+\begin{itemize}
+\tightlist
+\item
+  in the previous heading, it is assumed that cluster of size 2 is
+  expected. This is an extra exploratory to validate whether a cluster
+  of size 2 is the best way to split the data.
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  explain silhouette score in the number of cluster
+\item
+  say that 2 cluster is best according to silhouette score
+\end{itemize}
+
+    \hypertarget{data-reduction}{%
+\section{Data Reduction}\label{data-reduction}}
+
+\begin{itemize}
+\tightlist
+\item
+  quick explanation data reduction and importance
+\end{itemize}
+
+\hypertarget{numerosity-reduction}{%
+\subsection{Numerosity Reduction}\label{numerosity-reduction}}
+
+\begin{itemize}
+\tightlist
+\item
+  quick explanation to remove rows refers to like outliers or incomplete
+  data
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} To be done by Frinze using DBScan}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{attribute-reduction}{%
+\subsection{Attribute Reduction}\label{attribute-reduction}}
+
+    \hypertarget{principal-component-analysis-pca}{%
+\subsubsection{Principal Component Analysis
+(PCA)}\label{principal-component-analysis-pca}}
+
+\begin{itemize}
+\tightlist
+\item
+  quick explanation of PCA
+\item
+  need scaling before doing PCA
+\end{itemize}
+
+    \hypertarget{decision-tree-with-pca}{%
+\paragraph{Decision Tree with PCA}\label{decision-tree-with-pca}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}3} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pca}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dt\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca\PYZus{}\PYZus{}n\PYZus{}components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}3\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}3}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{dt\PYZus{}pipeline\PYZus{}3\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  explain PCA worsened Decision Tree Classifier from 94.75\% amount to
+  84\% accuracy
+\end{itemize}
+
+    \hypertarget{svm-with-pca}{%
+\paragraph{SVM with PCA}\label{svm-with-pca}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}3} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{scale}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pca}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{PCA}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pca\PYZus{}\PYZus{}n\PYZus{}components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svm\PYZus{}classifier\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precomputed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}3\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}3}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{svm\PYZus{}pipeline\PYZus{}3\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  PCA improved SVM from 98.95 to 99.1\%
+\end{itemize}
+
+    \hypertarget{select-k-best-with-information-gain-entropy-and-anova-f-statistic}{%
+\subsubsection{Select K-Best with Information Gain (Entropy) and ANOVA
+F-statistic}\label{select-k-best-with-information-gain-entropy-and-anova-f-statistic}}
+
+\begin{itemize}
+\tightlist
+\item
+  quick explanation information gain (used in decision trees) and ANOVA
+  looking at variance for forward and backward selection
+\end{itemize}
+
+    \hypertarget{decision-tree-with-select-k-best}{%
+\paragraph{Decision Tree with Select
+K-Best}\label{decision-tree-with-select-k-best}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{69}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}4} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select\PYZus{}kbest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dt\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select\PYZus{}kbest\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select\PYZus{}kbest\PYZus{}\PYZus{}score\PYZus{}func}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{f\PYZus{}classif}\PY{p}{,}\PY{n}{mutual\PYZus{}info\PYZus{}classif}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} F\PYZhy{}value statistic and Information Gain (entropy)}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} \PYZhy{} Entropy is better than GINI from previous results}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}4}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  explanation on the attributes (some comparison from the earlier
+  exploratory data analaysis), explain there are 15 attributes
+\item
+  improvement from 94.75\% to 95.15\% accuracy
+\item
+  explain that in this scenario F-statistic is better than information
+  gain in the transformation, but information gain is later used for the
+  decision tree classifier
+\end{itemize}
+
+    \hypertarget{svm-with-select-k-best}{%
+\paragraph{SVM with Select K-Best}\label{svm-with-select-k-best}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{76}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}4} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}  
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select\PYZus{}kbest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select\PYZus{}kbest\PYZus{}\PYZus{}k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{select\PYZus{}kbest\PYZus{}\PYZus{}score\PYZus{}func}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{n}{f\PYZus{}classif}\PY{p}{,}\PY{n}{mutual\PYZus{}info\PYZus{}classif}\PY{p}{]}\PY{p}{,} \PY{c+c1}{\PYZsh{} F\PYZhy{}value statistic and Information Gain (entropy)}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svm\PYZus{}classifier\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{c+c1}{\PYZsh{} removed other attributes that seems to be inaccurate}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}4\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}4}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{svm\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  improvement 98.95\% to 99.1\% (0.04\% better than PCA)
+\item
+  compare the previous attribute selection if it is the same
+\end{itemize}
+
+    \hypertarget{attribute-selection}{%
+\section{Attribute Selection}\label{attribute-selection}}
+
+\begin{itemize}
+\tightlist
+\item
+  do manual selection of attribute
+\item
+  compare to previous
+\item
+  also refer to the decision tree
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{81}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{MANUALLY\PYZus{}SELECTED\PYZus{}ATTRIBUTES} \PY{o}{=} \PY{p}{[}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ram}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{has\PYZus{}four\PYZus{}g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mobile\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{screen\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{primary\PYZus{}cam\PYZus{}resolution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number\PYZus{}of\PYZus{}cores}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{int\PYZus{}memory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}width}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+\PY{p}{]} \PY{c+c1}{\PYZsh{} based on domain\PYZhy{}specific knowledge and the exploratory plots}
+\PY{n}{feature\PYZus{}data\PYZus{}manually\PYZus{}selected} \PY{o}{=} \PY{n}{learning\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{n}{MANUALLY\PYZus{}SELECTED\PYZus{}ATTRIBUTES}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{decision-tree-with-manually-selected-attribute}{%
+\subsection{Decision Tree with Manually Selected
+Attribute}\label{decision-tree-with-manually-selected-attribute}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{82}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dt\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}criterion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dt\PYZus{}classifier\PYZus{}\PYZus{}max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]} \PY{o}{+} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data\PYZus{}manually\PYZus{}selected}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  discuss manually selected attribute lowered from 94.75\% to 92.35\%
+\end{itemize}
+
+    \hypertarget{svm-with-manually-selected-attributes}{%
+\subsection{SVM with Manually Selected
+Attributes}\label{svm-with-manually-selected-attributes}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{86}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+    \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{p}{]}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Grid Search}
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{svm\PYZus{}classifier\PYZus{}\PYZus{}kernel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poly}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
+\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data\PYZus{}manually\PYZus{}selected}\PY{p}{,}\PY{n}{target\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{itemize}
+\tightlist
+\item
+  discuss lowered accuracy from 98.95\% to 92.95\%
+\end{itemize}
+
+    \hypertarget{appendix}{%
+\section{Appendix}\label{appendix}}
+
+    \hypertarget{raw-data-profiling-report}{%
+\paragraph{Raw Data Profiling Report}\label{raw-data-profiling-report}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{raw\PYZus{}profile} \PY{o}{=} \PY{n}{ProfileReport}\PY{p}{(}\PY{n}{raw\PYZus{}data}\PY{p}{,} \PY{n}{explorative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{orange\PYZus{}mode}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Raw Data Profiling Report}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} set the Metadata}
+\PY{n}{metadata\PYZus{}dict} \PY{o}{=} \PY{n}{raw\PYZus{}metadata}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Explaination}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+
+\PY{n}{raw\PYZus{}profile}\PY{o}{.}\PY{n}{set\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variables.descriptions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{metadata\PYZus{}dict}\PY{p}{)}
+\PY{n}{raw\PYZus{}profile}\PY{o}{.}\PY{n}{to\PYZus{}file}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./profile\PYZus{}reports/raw\PYZus{}data\PYZus{}profile.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} raw\PYZus{}profile}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \hypertarget{clean-data-profiling-report}{%
+\paragraph{Clean Data Profiling
+Report}\label{clean-data-profiling-report}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{92}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Generate new pandas\PYZhy{}profiling }
+\PY{n}{cleaned\PYZus{}data\PYZus{}profile} \PY{o}{=} \PY{n}{ProfileReport}\PY{p}{(}\PY{n}{cleaned\PYZus{}data}\PY{p}{,} \PY{n}{explorative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{orange\PYZus{}mode}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Clean Data Profiling Report}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{cleaned\PYZus{}data\PYZus{}profile}\PY{o}{.}\PY{n}{set\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variables.descriptions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{cleaned\PYZus{}metadata\PYZus{}dict}\PY{p}{)} \PY{c+c1}{\PYZsh{} Set Metadata                  }
+\PY{n}{cleaned\PYZus{}data\PYZus{}profile}\PY{o}{.}\PY{n}{to\PYZus{}file}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./profile\PYZus{}reports/cleaned\PYZus{}data\PYZus{}profile.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} cleaned\PYZus{}data\PYZus{}profile}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Max Matthews\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}frame.py:4296:
+SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-
+docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  return super().rename(
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Summarize dataset'), FloatProgress(value=0.0, max=35.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Generate report structure'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Render HTML'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Export report to file'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    \hypertarget{discretised-data-profiling-report}{%
+\paragraph{Discretised Data Profiling
+Report}\label{discretised-data-profiling-report}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{93}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Generate new pandas\PYZhy{}profiling }
+\PY{n}{discretised\PYZus{}data\PYZus{}profile} \PY{o}{=} \PY{n}{ProfileReport}\PY{p}{(}\PY{n}{discretised\PYZus{}data}\PY{p}{,} \PY{n}{explorative}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{orange\PYZus{}mode}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Discretised Data Profiling Report}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{discretised\PYZus{}data\PYZus{}profile}\PY{o}{.}\PY{n}{set\PYZus{}variable}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{variables.descriptions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{cleaned\PYZus{}metadata\PYZus{}dict}\PY{p}{)} \PY{c+c1}{\PYZsh{} Set Metadata                  }
+\PY{n}{discretised\PYZus{}data\PYZus{}profile}\PY{o}{.}\PY{n}{to\PYZus{}file}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./profile\PYZus{}reports/discretised\PYZus{}data\PYZus{}profile.html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} discretised\PYZus{}data\PYZus{}profile}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Max Matthews\textbackslash{}anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}frame.py:4296:
+SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-
+docs/stable/user\_guide/indexing.html\#returning-a-view-versus-a-copy
+  return super().rename(
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Summarize dataset'), FloatProgress(value=0.0, max=34.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Generate report structure'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Render HTML'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+HBox(children=(HTML(value='Export report to file'), FloatProgress(value=0.0, max=1.0), HTML(value='')))
+    \end{Verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
