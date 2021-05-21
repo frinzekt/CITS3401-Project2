@@ -2919,50 +2919,22 @@ difficult to determine which domain specific attribute/s is the one/s
 contributing to the model.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{68}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{model} \PY{o}{=} \PY{n}{pca}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{)} \PY{c+c1}{\PYZsh{} explains 95\PYZpc{} of variance}
 \PY{n}{scaled\PYZus{}data} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}
 \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{scaled\PYZus{}data}\PY{p}{)}
-\PY{n}{model}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}model.plot()}
+\PY{c+c1}{\PYZsh{}plt.show()}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-[pca] >Column labels are auto-completed.
-[pca] >Row labels are auto-completed.
-[pca] >The PCA reduction is performed to capture [95.0\%] explained variance
-using the [20] columns of the input data.
-[pca] >Fitting using PCA..
-[pca] >Computing loadings and PCs..
-[pca] >Computing explained variance..
-[pca] >Number of components is [18] that covers the [95.00\%] explained variance.
-[pca] >Outlier detection using Hotelling T2 test with alpha=[0.05] and
-n\_components=[5]
-[pca] >Outlier detection using SPE/DmodX with n\_std=[2]
-    \end{Verbatim}
+    \begin{figure}
+\centering
+\includegraphics{project_with_report_files/project_with_report_141_1.png}
+\caption{PCA\_cumulative}
+\end{figure}
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_141_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{68}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-(<Figure size 720x576 with 1 Axes>,
- <AxesSubplot:title=\{'center':'Cumulative explained variance\textbackslash{}n 18 Principal
-Components explain [95.0\%] of the variance.'\}, xlabel='Principle Component',
-ylabel='Percentage explained variance'>)
-\end{Verbatim}
-\end{tcolorbox}
-        
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-<Figure size 432x288 with 0 Axes>
-    \end{Verbatim}
-
-    
     \textbf{Comment:} According to the total contributions, to be able to
 explain 95\% of the data's variance, there is a requirement to retain 18
 principal components. It should be noted that this is most unusual for
@@ -3313,24 +3285,21 @@ params\strut
 Tree}\label{attribute-selection-with-f-statistic-prior-to-decision-tree}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{81}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{select\PYZus{}k\PYZus{}best} \PY{o}{=} \PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
 \PY{n}{attributes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attribute\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
-\PY{n}{attributes\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attribute\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{kind}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{barh}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{logx}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Number of Attributes: }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{attributes\PYZus{}df}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{}attributes\PYZus{}df.sort\PYZus{}values(\PYZdq{}score\PYZdq{}).plot(x=\PYZdq{}attribute\PYZus{}name\PYZdq{},y=\PYZdq{}score\PYZdq{},kind=\PYZdq{}barh\PYZdq{}, logx=True)}
+\PY{c+c1}{\PYZsh{}print(f\PYZdq{}Number of Attributes: \PYZob{}len(attributes\PYZus{}df)\PYZcb{}\PYZdq{})}
 \end{Verbatim}
 \end{tcolorbox}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-Number of Attributes: 15
-    \end{Verbatim}
+    \begin{figure}
+\centering
+\includegraphics{project_with_report_files/project_with_report_163_1.png}
+\caption{fstatistic}
+\end{figure}
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_162_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
     \textbf{Comments:} The table and graph (above) display the small
 improvement in the accuracy percentge, when the Decision Tree model
 experienced the `select k-best' attribute reduction (an increase from
@@ -3388,7 +3357,7 @@ Number of Attributes: 17
     \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_167_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_169_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -3531,7 +3500,7 @@ Number of Attributes: 10
     \end{Verbatim}
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_174_1.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{project_with_report_files/project_with_report_176_1.png}
     \end{center}
     { \hspace*{\fill} \\}
     
