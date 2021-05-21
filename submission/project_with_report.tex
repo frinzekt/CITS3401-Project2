@@ -535,7 +535,7 @@ and modelling.
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{pip} \PY{n}{install} \PY{n}{pandas}\PY{o}{\PYZhy{}}\PY{n}{profiling}\PY{p}{[}\PY{n}{notebook}\PY{p}{]} \PY{n}{mlxtend} \PY{n}{clusteval} \PY{n}{pca} \PY{n}{graphviz} \PY{n}{dtreeviz} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{user}
+\PY{n}{pip} \PY{n}{install} \PY{n}{pandas}\PY{o}{\PYZhy{}}\PY{n}{profiling}\PY{p}{[}\PY{n}{notebook}\PY{p}{]} \PY{n}{mlxtend} \PY{n}{clusteval} \PY{n}{pca} \PY{n}{graphviz} \PY{n}{dtreeviz} \PY{n}{tabulate} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{user}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -545,6 +545,7 @@ and modelling.
 \PY{c+c1}{\PYZsh{} Data analysis, manipulation, and profiling}
 \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
 \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}colwidth} \PY{o}{=} \PY{l+m+mi}{100}
+\PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{display.notebook\PYZus{}repr\PYZus{}html}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
 
 \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
 \PY{k+kn}{from} \PY{n+nn}{pandas\PYZus{}profiling} \PY{k+kn}{import} \PY{n}{ProfileReport}
@@ -596,6 +597,15 @@ and modelling.
 \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{covariance} \PY{k+kn}{import} \PY{n}{EllipticEnvelope}
 \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k+kn}{import} \PY{n}{DBSCAN}
 \PY{k+kn}{from} \PY{n+nn}{pca} \PY{k+kn}{import} \PY{n}{pca}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{ }{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k+kn}{import} \PY{n}{Markdown}\PY{p}{,} \PY{n}{display}
+\PY{k}{def} \PY{n+nf}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{dataframe}\PY{p}{)}\PY{p}{:}
+    \PY{n}{display}\PY{p}{(}\PY{n}{Markdown}\PY{p}{(}\PY{n}{dataframe}\PY{o}{.}\PY{n}{to\PYZus{}markdown}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1228,9 +1238,6 @@ literally as the stated value).
 \end{Verbatim}
 \end{tcolorbox}
 
-    \hypertarget{updated-metadata}{%
-\paragraph{Updated Metadata:}\label{updated-metadata}}
-
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{29}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1363,9 +1370,16 @@ investigate further.
 Association rule mining (`ARM') is a technique used investigate and
 uncover frequently occurring patterns, correlations, or associations,
 between the characteristics of a given dataset/s or source. Association
-rules comprise of two parts: - antecedent (if) → An antecedent is
-something that is found in data; - consequent (then) → A consequent is
-an item that is found in combination with the antecedent.
+rules comprise of two parts:
+
+\begin{itemize}
+\tightlist
+\item
+  antecedent (if) → An antecedent is something that is found in data;
+\item
+  consequent (then) → A consequent is an item that is found in
+  combination with the antecedent.
+\end{itemize}
 
     \hypertarget{arm-approach}{%
 \subsection{ARM Approach}\label{arm-approach}}
@@ -1456,12 +1470,12 @@ rules.
 Support'}\label{rules-by-minimum-support}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{35}{\boxspacing}
+\prompt{In}{incolor}{36}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} This defines what is considered as a minimum item}
 \PY{n}{MINIMUM\PYZus{}SUPPORT} \PY{o}{=} \PY{l+m+mf}{0.1}
 \PY{n}{frequent\PYZus{}items} \PY{o}{=} \PY{n}{apriori}\PY{p}{(}\PY{n}{ARM\PYZus{}structured\PYZus{}data}\PY{p}{,}\PY{n}{min\PYZus{}support}\PY{o}{=}\PY{n}{MINIMUM\PYZus{}SUPPORT}\PY{p}{,}\PY{n}{use\PYZus{}colnames}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
-\PY{n}{frequent\PYZus{}items}
+\PY{n}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{frequent\PYZus{}items}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{frequent\PYZus{}items}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1469,50 +1483,98 @@ Support'}\label{rules-by-minimum-support}}
 Processing 570 combinations | Sampling itemset size 5 4
     \end{Verbatim}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{35}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-     support  \textbackslash{}
-0     0.4950
-1     0.5095
-2     0.5215
-3     0.7615
-4     0.5030
-..       {\ldots}
-712   0.1165
-713   0.1165
-714   0.1000
-715   0.1100
-716   0.1050
+    \begin{longtable}[]{@{}rrl@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\raggedleft
+support\strut
+\end{minipage} & \begin{minipage}[b]{0.82\columnwidth}\raggedright
+itemsets\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.495\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_bluetooth'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.5095\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_dual\_sim'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.5215\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_four\_g'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.7615\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_three\_g'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.503\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_touch\_screen'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+712\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `has\_three\_g', `has\_wifi',
+`screen\_width\_category\_(-0.019, 4.5{]}'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+713\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive', `has\_three\_g',
+`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+714\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`clock\_speed\_category\_(0.497, 1.125{]}', `has\_four\_g',
+`has\_three\_g', `screen\_width\_category\_(-0.019, 4.5{]}'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+715\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.11\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`px\_height\_category\_(-1.9609999999999999, 490.0{]}',
+`front\_cam\_resolution\_category\_(0.981, 5.5{]}', `has\_four\_g',
+`has\_three\_g'\})\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+716\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.105\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+frozenset(\{`px\_height\_category\_(-1.9609999999999999, 490.0{]}',
+`has\_four\_g', `has\_three\_g', `screen\_width\_category\_(-0.019,
+4.5{]}'\})\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                itemsets
-0
-(has\_bluetooth)
-1
-(has\_dual\_sim)
-2
-(has\_four\_g)
-3
-(has\_three\_g)
-4
-(has\_touch\_screen)
-..
-{\ldots}
-712                             (has\_three\_g, has\_four\_g, has\_wifi,
-screen\_width\_category\_(-0.019, 4.5])
-713                               (has\_three\_g, has\_four\_g,
-ram\_category\_(3062.5, 3998.0], is\_expensive)
-714  (has\_three\_g, has\_four\_g, clock\_speed\_category\_(0.497, 1.125],
-screen\_width\_category\_(-0.019, 4.5])
-715  (has\_three\_g, has\_four\_g, px\_height\_category\_(-1.9609999999999999, 490.0],
-front\_cam\_resolution\_{\ldots}
-716  (has\_three\_g, has\_four\_g, px\_height\_category\_(-1.9609999999999999, 490.0],
-screen\_width\_category{\ldots}
-
-[717 rows x 2 columns]
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \textbf{Comment:} The (above) table demonstrates the item sets that meet
 the minimum defined support (\texttt{0.1}).
 
@@ -1521,7 +1583,7 @@ the minimum defined support (\texttt{0.1}).
 
 In ARM, confidence is an indication of how often the rule has been found
 to be true. The confidence value of a rule, \{ \textbf{\emph{X}}
-==\textgreater{} \textbf{\emph{Y}} \} with respect to a set of
+-\textgreater{} \textbf{\emph{Y}} \} with respect to a set of
 \textbf{z}'s \{\textbf{\emph{Z}}\}, is the proportion of the
 \textbf{z}'s that contains \textbf{\emph{X}}, which also contains
 \textbf{\emph{Y}}.
@@ -1531,53 +1593,180 @@ to be true. The confidence value of a rule, \{ \textbf{\emph{X}}
 Confidence'}\label{rules-by-minimum-confidence}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{36}{\boxspacing}
+\prompt{In}{incolor}{37}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{antecedents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consequents}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{confidence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lift}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{37}{\boxspacing}
+\prompt{In}{incolor}{38}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{MINIMUM\PYZus{}CONFIDENCE\PYZus{}THRESHOLD} \PY{o}{=} \PY{l+m+mf}{0.20} \PY{c+c1}{\PYZsh{} this is the minimum confidence threshold to mine}
 \PY{n}{rules\PYZus{}by\PYZus{}confidence} \PY{o}{=} \PY{n}{association\PYZus{}rules}\PY{p}{(}\PY{n}{frequent\PYZus{}items}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confidence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}threshold}\PY{o}{=}\PY{n}{MINIMUM\PYZus{}CONFIDENCE\PYZus{}THRESHOLD}\PY{p}{)}
 
 \PY{c+c1}{\PYZsh{} Get all the rules that has mobile price}
 \PY{n}{rules} \PY{o}{=} \PY{n}{rules\PYZus{}by\PYZus{}confidence}\PY{p}{[}\PY{n}{rules\PYZus{}by\PYZus{}confidence}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{consequents}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}expensive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{issubset}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confidence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
-\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{n}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{37}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-                                                antecedents  \textbackslash{}
-0               (has\_four\_g, ram\_category\_(3062.5, 3998.0])
-1               (has\_four\_g, ram\_category\_(3062.5, 3998.0])
-2  (has\_three\_g, has\_four\_g, ram\_category\_(3062.5, 3998.0])
-3         (has\_touch\_screen, ram\_category\_(3062.5, 3998.0])
-4              (has\_three\_g, ram\_category\_(3062.5, 3998.0])
-5                 (ram\_category\_(3062.5, 3998.0], has\_wifi)
-6            (ram\_category\_(3062.5, 3998.0], has\_bluetooth)
-7                           (ram\_category\_(3062.5, 3998.0])
-8             (has\_dual\_sim, ram\_category\_(3062.5, 3998.0])
-9                           (ram\_category\_(3062.5, 3998.0])
+    \begin{longtable}[]{@{}rllrrr@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.40\columnwidth}\raggedright
+antecedents\strut
+\end{minipage} & \begin{minipage}[b]{0.23\columnwidth}\raggedright
+consequents\strut
+\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\raggedleft
+support\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedleft
+confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+lift\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.42647\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+4.44996\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.42647\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_touch\_screen', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.103\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.847737\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.39095\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1635\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.844961\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.37984\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_wifi', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.108\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.840467\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.36187\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+6\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_bluetooth', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.109\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.838462\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.35385\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+7\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.209\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.832669\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.33068\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+8\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`has\_dual\_sim', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.115\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.824373\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.29749\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+9\strut
+\end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1635\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.651394\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+3.38387\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                   consequents  support  confidence      lift
-0               (is\_expensive)   0.1165    0.856618  3.426471
-1  (has\_three\_g, is\_expensive)   0.1165    0.856618  4.449962
-2               (is\_expensive)   0.1165    0.856618  3.426471
-3               (is\_expensive)   0.1030    0.847737  3.390947
-4               (is\_expensive)   0.1635    0.844961  3.379845
-5               (is\_expensive)   0.1080    0.840467  3.361868
-6               (is\_expensive)   0.1090    0.838462  3.353846
-7               (is\_expensive)   0.2090    0.832669  3.330677
-8               (is\_expensive)   0.1150    0.824373  3.297491
-9  (has\_three\_g, is\_expensive)   0.1635    0.651394  3.383867
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \textbf{Comment:} The (above) table shows a min-confidence threshold of
 \texttt{0.65}, for the top \texttt{k=10} rules , and \texttt{0.43} for
 the top \texttt{k=16} rules (we have omitted 6, however see
@@ -1603,29 +1792,85 @@ an antecedent that contains \texttt{ram\_category} in the
 \texttt{3062.5\ -\ 3998.0} range.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{38}{\boxspacing}
+\prompt{In}{incolor}{39}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{]}
+\PY{n}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{38}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-                                     antecedents                  consequents  \textbackslash{}
-17  (front\_cam\_resolution\_category\_(0.981, 5.5])               (is\_expensive)
-18                     (has\_three\_g, has\_four\_g)               (is\_expensive)
-19                                  (has\_four\_g)  (has\_three\_g, is\_expensive)
-20                                  (has\_four\_g)               (is\_expensive)
+    \begin{longtable}[]{@{}rllrrr@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\raggedright
+antecedents\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+consequents\strut
+\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\raggedleft
+support\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedleft
+confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+lift\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+frozenset(\{`front\_cam\_resolution\_category\_(0.981, 5.5{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.116\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.26484\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.05936\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+18\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1375\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.263663\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.05465\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+19\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+frozenset(\{`has\_four\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1375\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.263663\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.36968\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+20\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
+frozenset(\{`has\_four\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1375\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.263663\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.05465\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-    support  confidence      lift
-17   0.1160    0.264840  1.059361
-18   0.1375    0.263663  1.054650
-19   0.1375    0.263663  1.369675
-20   0.1375    0.263663  1.054650
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1666,7 +1911,7 @@ lift (A, B) = P( A U B ) / P(A) P(B)
 \subsubsection{Rules by `Lift'}\label{rules-by-lift}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{40}{\boxspacing}
+\prompt{In}{incolor}{41}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{MINIMUM\PYZus{}LIFT\PYZus{}THRESHOLD} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
 
@@ -1688,41 +1933,167 @@ lift (A, B) = P( A U B ) / P(A) P(B)
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{42}{\boxspacing}
+\prompt{In}{incolor}{43}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\PY{n}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{42}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-                                                antecedents  \textbackslash{}
-0               (has\_four\_g, ram\_category\_(3062.5, 3998.0])
-1              (has\_three\_g, ram\_category\_(3062.5, 3998.0])
-2                           (ram\_category\_(3062.5, 3998.0])
-3               (has\_four\_g, ram\_category\_(3062.5, 3998.0])
-4  (has\_three\_g, has\_four\_g, ram\_category\_(3062.5, 3998.0])
-5         (has\_touch\_screen, ram\_category\_(3062.5, 3998.0])
-6                           (ram\_category\_(3062.5, 3998.0])
-7              (has\_three\_g, ram\_category\_(3062.5, 3998.0])
-8                           (ram\_category\_(3062.5, 3998.0])
-9                           (ram\_category\_(3062.5, 3998.0])
+    \begin{longtable}[]{@{}rllrrr@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.37\columnwidth}\raggedright
+antecedents\strut
+\end{minipage} & \begin{minipage}[b]{0.28\columnwidth}\raggedright
+consequents\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+support\strut
+\end{minipage} & \begin{minipage}[b]{0.07\columnwidth}\raggedleft
+confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.04\columnwidth}\raggedleft
+lift\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+4.44996\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.602067\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+4.37867\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`has\_dual\_sim', `is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.115\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.458167\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.45787\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.42647\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.856618\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.42647\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_touch\_screen', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.103\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.847737\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.39095\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+6\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1635\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.651394\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.38387\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+7\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1635\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.844961\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.37984\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+8\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.464143\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.37559\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+9\strut
+\end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive', `has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
+0.464143\strut
+\end{minipage} & \begin{minipage}[t]{0.04\columnwidth}\raggedleft
+3.37559\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                               consequents  support  confidence      lift
-0              (has\_three\_g, is\_expensive)   0.1165    0.856618  4.449962
-1               (is\_expensive, has\_four\_g)   0.1165    0.602067  4.378670
-2             (is\_expensive, has\_dual\_sim)   0.1150    0.458167  3.457867
-3                           (is\_expensive)   0.1165    0.856618  3.426471
-4                           (is\_expensive)   0.1165    0.856618  3.426471
-5                           (is\_expensive)   0.1030    0.847737  3.390947
-6              (has\_three\_g, is\_expensive)   0.1635    0.651394  3.383867
-7                           (is\_expensive)   0.1635    0.844961  3.379845
-8               (is\_expensive, has\_four\_g)   0.1165    0.464143  3.375589
-9  (has\_three\_g, has\_four\_g, is\_expensive)   0.1165    0.464143  3.375589
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \textbf{Comment:} The (above) table shows top (\texttt{k=10}) rules,
 where we notice that \texttt{ram\_category} is present in all (10)
 antecedents (see
@@ -1747,27 +2118,74 @@ positive, or negative).
 \end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{43}{\boxspacing}
+\prompt{In}{incolor}{44}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{]}
+\PY{n}{display\PYZus{}markdown}\PY{p}{(}\PY{n}{rules}\PY{p}{[}\PY{n}{ARM\PYZus{}COLS\PYZus{}OF\PYZus{}INTEREST}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{18}\PY{p}{:}\PY{l+m+mi}{21}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{43}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-      antecedents                                                 consequents  \textbackslash{}
-18   (has\_four\_g)  (has\_three\_g, ram\_category\_(3062.5, 3998.0], is\_expensive)
-19  (has\_three\_g)                                  (is\_expensive, has\_four\_g)
-20  (has\_three\_g)   (is\_expensive, has\_four\_g, ram\_category\_(3062.5, 3998.0])
+    \begin{longtable}[]{@{}rllrrr@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+antecedents\strut
+\end{minipage} & \begin{minipage}[b]{0.45\columnwidth}\raggedright
+consequents\strut
+\end{minipage} & \begin{minipage}[b]{0.06\columnwidth}\raggedleft
+support\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedleft
+confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.05\columnwidth}\raggedleft
+lift\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+18\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+frozenset(\{`has\_four\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
+frozenset(\{`is\_expensive', `has\_three\_g', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.223394\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.36632\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+19\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+frozenset(\{`has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive', `ram\_category\_(3062.5,
+3998.0{]}'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1165\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.152988\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.3132\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+20\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+frozenset(\{`has\_three\_g'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
+frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
+\end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
+0.1375\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.180565\strut
+\end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
+1.3132\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-    support  confidence      lift
-18   0.1165    0.223394  1.366324
-19   0.1375    0.180565  1.313198
-20   0.1165    0.152988  1.313198
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \textbf{Comment:} The 18th up to the 20th (above) show different
 attribute with a lift that is positively correlated, but not as strong
 as the previous the rules.
@@ -1834,7 +2252,7 @@ either continuous (`Regression Tree') or discrete (`Classification
 Tree') data.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{44}{\boxspacing}
+\prompt{In}{incolor}{45}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Seperation of data into features and target}
 \PY{n}{learning\PYZus{}data} \PY{o}{=} \PY{n}{cleaned\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -1849,7 +2267,9 @@ Tree') data.
 \PY{c+c1}{\PYZsh{} classification helpers}
 
 \PY{k}{def} \PY{n+nf}{show\PYZus{}top\PYZus{}results}\PY{p}{(} \PY{n}{gridsearch}\PY{p}{,} \PY{n}{target\PYZus{}results}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{params}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{number\PYZus{}of\PYZus{}params}\PY{o}{=}\PY{l+m+mi}{5} \PY{p}{)}\PY{p}{:}
-    \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{gridsearch}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{n}{target\PYZus{}results}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}params}\PY{p}{)}
+    
+    \PY{n}{result} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{gridsearch}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{n}{target\PYZus{}results}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}params}\PY{p}{)}
+    \PY{n}{display}\PY{p}{(}\PY{n}{Markdown}\PY{p}{(}\PY{n}{result}\PY{o}{.}\PY{n}{to\PYZus{}markdown}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1874,7 +2294,7 @@ for choosing an attribute and a threshold:
 We will now configure and test the aforementioned classifiers\ldots{}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{102}{\boxspacing}
+\prompt{In}{incolor}{47}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{dt\PYZus{}pipeline\PYZus{}1} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dt\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}\PY{p}{)}
@@ -1896,31 +2316,79 @@ We will now configure and test the aforementioned classifiers\ldots{}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{104}{\boxspacing}
+\prompt{In}{incolor}{49}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{104}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-    rank\_test\_score  mean\_test\_score  \textbackslash{}
-26                1           0.9475
-28                2           0.9435
-29                3           0.9415
-27                4           0.9405
-20                5           0.9400
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.57\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+26\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+0.9475\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+28\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+0.9435\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 8\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+29\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+0.9415\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 9\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+27\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+0.9405\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 7\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+20\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedleft
+0.94\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': None\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                                                                       params
-26     \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 6\}
-28     \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 8\}
-29     \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 9\}
-27     \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 7\}
-20  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': None\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1940,7 +2408,7 @@ in the listed top 5 containing gini-index criterium.
 Visualization}\label{decision-tree-visualization}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{106}{\boxspacing}
+\prompt{In}{incolor}{51}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{viz} \PY{o}{=} \PY{n}{dtreeviz}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{feature\PYZus{}data}\PY{p}{,} \PY{n}{target\PYZus{}data}\PY{p}{,}
                 \PY{n}{target\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
@@ -1959,7 +2427,8 @@ Visualization}\label{decision-tree-visualization}}
 \end{figure}
 
     \textbf{Comment:} The (above) diagram shows the decision tree
-visualisation.
+visualisation. (See submission folder
+\texttt{diagrams/decision\_tree.png})
 
     \hypertarget{support-vector-machine}{%
 \subsection{Support Vector Machine}\label{support-vector-machine}}
@@ -1976,7 +2445,7 @@ parameter/s available in SVM are:
 \end{itemize}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{51}{\boxspacing}
+\prompt{In}{incolor}{52}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{svm\PYZus{}pipeline\PYZus{}2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
@@ -1998,25 +2467,28 @@ parameter/s available in SVM are:
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{53}{\boxspacing}
+\prompt{In}{incolor}{54}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{53}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-   rank\_test\_score  mean\_test\_score                                 params
-0                1           0.9895   \{'svm\_classifier\_\_kernel': 'linear'\}
-1                2           0.9825     \{'svm\_classifier\_\_kernel': 'poly'\}
-2                3           0.9785      \{'svm\_classifier\_\_kernel': 'rbf'\}
-3                4           0.5300  \{'svm\_classifier\_\_kernel': 'sigmoid'\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+& rank\_test\_score & mean\_test\_score & params\tabularnewline
+\midrule
+\endhead
+0 & 1 & 0.9895 & \{'svm\_classifier\_\_kernel':
+`linear'\}\tabularnewline
+1 & 2 & 0.9825 & \{'svm\_classifier\_\_kernel': `poly'\}\tabularnewline
+2 & 3 & 0.9785 & \{'svm\_classifier\_\_kernel': `rbf'\}\tabularnewline
+3 & 4 & 0.53 & \{'svm\_classifier\_\_kernel': `sigmoid'\}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{54}{\boxspacing}
+\prompt{In}{incolor}{55}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best Mean Test Scores of different Parameters: }\PY{l+s+si}{\PYZob{}}\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}score\PYZus{}}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Best Params: }\PY{l+s+si}{\PYZob{}}\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}params\PYZus{}}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -2090,7 +2562,7 @@ the cluster with the nearest cluster-mean / cluster-centroid.
 \paragraph{Confusion Table}\label{confusion-table}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{56}{\boxspacing}
+\prompt{In}{incolor}{57}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{kmeans\PYZus{}model} \PY{o}{=} \PY{n}{KMeans}\PY{p}{(}\PY{n}{n\PYZus{}clusters}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}
 \PY{n}{kmeans\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}
@@ -2111,7 +2583,7 @@ the cluster with the nearest cluster-mean / cluster-centroid.
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{58}{\boxspacing}
+\prompt{In}{incolor}{59}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{print\PYZus{}confusion\PYZus{}table}\PY{p}{(}\PY{n}{crosstab}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
 \end{Verbatim}
@@ -2142,7 +2614,7 @@ expected. This is an extra exploratory step to validate whether a
 cluster of size 2 is the best way to split the data.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{59}{\boxspacing}
+\prompt{In}{incolor}{60}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{cluster\PYZus{}evaluation} \PY{o}{=} \PY{n}{clusteval}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silhouette}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cluster}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{kmeans}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
 \PY{n}{cluster\PYZus{}evaluation}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}\PY{p}{)}
@@ -2151,8 +2623,8 @@ cluster of size 2 is the best way to split the data.
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-  4\%|███▊
-| 1/23 [00:00<00:03,  6.58it/s]
+  4\%|███▋
+| 1/23 [00:00<00:03,  6.85it/s]
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -2163,7 +2635,7 @@ cluster of size 2 is the best way to split the data.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 100\%|███████████████████████████████████████████████████████████████████████████
-████████████| 23/23 [00:07<00:00,  2.91it/s]
+██████████| 23/23 [00:06<00:00,  3.82it/s]
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -2177,7 +2649,7 @@ cluster of size 2 is the best way to split the data.
     { \hspace*{\fill} \\}
     
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{59}{\boxspacing}
+\prompt{Out}{outcolor}{60}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 (<Figure size 1080x576 with 1 Axes>,
  <AxesSubplot:title=\{'center':'silhouette score versus number of clusters'\},
@@ -2258,7 +2730,7 @@ Tree}\label{numerosity-reduction---sampling-with-decision-tree}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{61}{\boxspacing}
+\prompt{In}{incolor}{62}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{sampled\PYZus{}learning\PYZus{}data} \PY{o}{=} \PY{n}{learning\PYZus{}data}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{)}
 \PY{n}{sampled\PYZus{}target\PYZus{}data} \PY{o}{=} \PY{n}{sampled\PYZus{}learning\PYZus{}data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
@@ -2275,32 +2747,80 @@ Tree}\label{numerosity-reduction---sampling-with-decision-tree}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{63}{\boxspacing}
+\prompt{In}{incolor}{64}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Results in Tabular format}
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{63}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-    rank\_test\_score  mean\_test\_score  \textbackslash{}
-0                 1            0.928
-10                1            0.928
-19                1            0.928
-18                1            0.928
-17                1            0.928
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.56\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.928\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+None\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+10\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.928\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+10\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+19\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.928\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+19\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+18\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.928\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+18\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.928\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+17\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                                                                    params
-0   \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': None\}
-10    \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 10\}
-19    \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 19\}
-18    \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 18\}
-17    \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 17\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \textbf{Comment:} Though we see (above) a drop in
 \texttt{mean\_test\_score} by \texttt{1.2\%} (which is not surprising),
 the amount of data needed for testing and training has been cut by
@@ -2311,7 +2831,7 @@ the amount of data needed for testing and training has been cut by
 Machine}\label{numerosity-reduction---sampling-with-support-vector-machine}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{64}{\boxspacing}
+\prompt{In}{incolor}{65}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{svm\PYZus{}pipeline\PYZus{}2} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{svm\PYZus{}classifier}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
@@ -2325,42 +2845,35 @@ Machine}\label{numerosity-reduction---sampling-with-support-vector-machine}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{65}{\boxspacing}
+\prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{CROSS\PYZus{}VALIDATION\PYZus{}PARTITION}\PY{p}{)}
 \PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{sampled\PYZus{}feature\PYZus{}data}\PY{p}{,}\PY{n}{sampled\PYZus{}target\PYZus{}data}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{65}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-GridSearchCV(cv=10, estimator=Pipeline(steps=[('svm\_classifier', SVC())]),
-             n\_jobs=-1,
-             param\_grid=\{'svm\_classifier\_\_kernel': ['linear', 'poly', 'rbf',
-                                                    'sigmoid']\})
-\end{Verbatim}
-\end{tcolorbox}
-        
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{66}{\boxspacing}
+\prompt{In}{incolor}{67}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Results in Tabular format}
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{66}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-   rank\_test\_score  mean\_test\_score                                 params
-0                1            0.982   \{'svm\_classifier\_\_kernel': 'linear'\}
-1                2            0.977     \{'svm\_classifier\_\_kernel': 'poly'\}
-2                3            0.974      \{'svm\_classifier\_\_kernel': 'rbf'\}
-3                4            0.548  \{'svm\_classifier\_\_kernel': 'sigmoid'\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+& rank\_test\_score & mean\_test\_score & params\tabularnewline
+\midrule
+\endhead
+0 & 1 & 0.982 & \{'svm\_classifier\_\_kernel': `linear'\}\tabularnewline
+1 & 2 & 0.977 & \{'svm\_classifier\_\_kernel': `poly'\}\tabularnewline
+2 & 3 & 0.974 & \{'svm\_classifier\_\_kernel': `rbf'\}\tabularnewline
+3 & 4 & 0.548 & \{'svm\_classifier\_\_kernel':
+`sigmoid'\}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    
     \textbf{Comment:} (Above) Similar to the results from the numerosity
 reduction with the Decision Tree, we have observed an insignificant drop
 in accuracy from the default SVM model (accuracy of \texttt{98.95\%}) to
@@ -2406,7 +2919,7 @@ difficult to determine which domain specific attribute/s is the one/s
 contributing to the model.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{67}{\boxspacing}
+\prompt{In}{incolor}{68}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{model} \PY{o}{=} \PY{n}{pca}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{)} \PY{c+c1}{\PYZsh{} explains 95\PYZpc{} of variance}
 \PY{n}{scaled\PYZus{}data} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{feature\PYZus{}data}\PY{p}{)}
@@ -2435,7 +2948,7 @@ n\_components=[5]
     { \hspace*{\fill} \\}
     
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{67}{\boxspacing}
+\prompt{Out}{outcolor}{68}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 (<Figure size 720x576 with 1 Axes>,
  <AxesSubplot:title=\{'center':'Cumulative explained variance\textbackslash{}n 18 Principal
@@ -2486,36 +2999,79 @@ PCA}\label{attribute-reduction---decision-tree-with-pca}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{70}{\boxspacing}
+\prompt{In}{incolor}{71}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}3\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{70}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-     rank\_test\_score  mean\_test\_score  \textbackslash{}
-568                1           0.8395
-682                2           0.8385
-567                3           0.8385
-566                3           0.8385
-663                5           0.8380
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.12\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.12\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.62\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+568\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.8395\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 18\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+682\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.8385\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 15, 'pca\_\_n\_components': 18\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+566\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.8385\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 16\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+567\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.8385\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 17\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+663\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.838\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 14, 'pca\_\_n\_components': 18\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-               params
-568   \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 9,
-'pca\_\_n\_components': 18\}
-682  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 15,
-'pca\_\_n\_components': 18\}
-567   \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 9,
-'pca\_\_n\_components': 17\}
-566   \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 9,
-'pca\_\_n\_components': 16\}
-663  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 14,
-'pca\_\_n\_components': 18\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -2563,31 +3119,31 @@ PCA}\label{attribute-reduction---support-vector-machine-with-pca}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{74}{\boxspacing}
+\prompt{In}{incolor}{75}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}3\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{74}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-    rank\_test\_score  mean\_test\_score  \textbackslash{}
-85                1           0.9910
-80                1           0.9910
-90                3           0.9895
-75                4           0.9840
-88                5           0.9785
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+& rank\_test\_score & mean\_test\_score & params\tabularnewline
+\midrule
+\endhead
+85 & 1 & 0.991 & \{'pca\_\_n\_components': 18,
+'svm\_classifier\_\_kernel': `linear'\}\tabularnewline
+80 & 1 & 0.991 & \{'pca\_\_n\_components': 17,
+'svm\_classifier\_\_kernel': `linear'\}\tabularnewline
+90 & 3 & 0.9895 & \{'pca\_\_n\_components': 19,
+'svm\_classifier\_\_kernel': `linear'\}\tabularnewline
+75 & 4 & 0.984 & \{'pca\_\_n\_components': 16,
+'svm\_classifier\_\_kernel': `linear'\}\tabularnewline
+88 & 5 & 0.9785 & \{'pca\_\_n\_components': 18,
+'svm\_classifier\_\_kernel': `sigmoid'\}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                                                            params
-85   \{'pca\_\_n\_components': 18, 'svm\_classifier\_\_kernel': 'linear'\}
-80   \{'pca\_\_n\_components': 17, 'svm\_classifier\_\_kernel': 'linear'\}
-90   \{'pca\_\_n\_components': 19, 'svm\_classifier\_\_kernel': 'linear'\}
-75   \{'pca\_\_n\_components': 16, 'svm\_classifier\_\_kernel': 'linear'\}
-88  \{'pca\_\_n\_components': 18, 'svm\_classifier\_\_kernel': 'sigmoid'\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -2635,7 +3191,7 @@ a probability distribution. E.g :
 K-Best}\label{attribute-reduction---decision-tree-with-select-k-best}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{76}{\boxspacing}
+\prompt{In}{incolor}{77}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{dt\PYZus{}pipeline\PYZus{}4} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select\PYZus{}kbest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
@@ -2660,36 +3216,89 @@ K-Best}\label{attribute-reduction---decision-tree-with-select-k-best}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{78}{\boxspacing}
+\prompt{In}{incolor}{79}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{78}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-     rank\_test\_score  mean\_test\_score  \textbackslash{}
-332                1           0.9515
-250                2           0.9515
-260                2           0.9515
-256                2           0.9515
-248                5           0.9510
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.70\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+332\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 8, 'select\_kbest\_\_k': 15,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x0000027B4261E5E0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+260\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 17,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x0000027B4261E5E0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+256\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 15,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x0000027B4261E5E0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+250\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 12,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x0000027B4261E5E0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+336\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.951\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 8, 'select\_kbest\_\_k': 17,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x0000027B4261E5E0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                  params
-332  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 8,
-'select\_kbest\_\_k': 15, 's{\ldots}
-250  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 6,
-'select\_kbest\_\_k': 12, 's{\ldots}
-260  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 6,
-'select\_kbest\_\_k': 17, 's{\ldots}
-256  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 6,
-'select\_kbest\_\_k': 15, 's{\ldots}
-248  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 6,
-'select\_kbest\_\_k': 11, 's{\ldots}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -2704,7 +3313,7 @@ K-Best}\label{attribute-reduction---decision-tree-with-select-k-best}}
 Tree}\label{attribute-selection-with-f-statistic-prior-to-decision-tree}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{80}{\boxspacing}
+\prompt{In}{incolor}{81}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{select\PYZus{}k\PYZus{}best} \PY{o}{=} \PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
 \PY{n}{attributes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attribute\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
@@ -2765,7 +3374,7 @@ Tree}\label{attribute-selection---with-information-gain-prior-to-decision-tree}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{83}{\boxspacing}
+\prompt{In}{incolor}{84}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{select\PYZus{}k\PYZus{}best} \PY{o}{=} \PY{n}{dt\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
 \PY{n}{attributes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attribute\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
@@ -2775,7 +3384,7 @@ Tree}\label{attribute-selection---with-information-gain-prior-to-decision-tree}}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Number of Attributes: 16
+Number of Attributes: 10
     \end{Verbatim}
 
     \begin{center}
@@ -2795,7 +3404,7 @@ prioritised by information gain and F-statistic.
 K-Best}\label{attribute-reduction---support-vector-machine-with-select-k-best}}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{84}{\boxspacing}
+\prompt{In}{incolor}{85}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{svm\PYZus{}pipeline\PYZus{}4} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}  
     \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{select\PYZus{}kbest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{SelectKBest}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
@@ -2820,36 +3429,84 @@ K-Best}\label{attribute-reduction---support-vector-machine-with-select-k-best}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{86}{\boxspacing}
+\prompt{In}{incolor}{87}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{86}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-    rank\_test\_score  mean\_test\_score  \textbackslash{}
-0                 1           0.9915
-4                 1           0.9915
-12                3           0.9910
-8                 4           0.9905
-16                4           0.9905
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.02\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.67\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+0\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+0.9915\strut
+\end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
+\{'select\_kbest\_\_k': 10, 'select\_kbest\_\_score\_func':
+\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+'svm\_classifier\_\_kernel': `linear'\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+0.9915\strut
+\end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
+\{'select\_kbest\_\_k': 11, 'select\_kbest\_\_score\_func':
+\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+'svm\_classifier\_\_kernel': `linear'\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+12\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+0.991\strut
+\end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
+\{'select\_kbest\_\_k': 13, 'select\_kbest\_\_score\_func':
+\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+'svm\_classifier\_\_kernel': `linear'\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+8\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+0.9905\strut
+\end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
+\{'select\_kbest\_\_k': 12, 'select\_kbest\_\_score\_func':
+\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+'svm\_classifier\_\_kernel': `linear'\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+16\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedleft
+0.9905\strut
+\end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
+\{'select\_kbest\_\_k': 14, 'select\_kbest\_\_score\_func':
+\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+'svm\_classifier\_\_kernel': `linear'\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                 params
-0   \{'select\_kbest\_\_k': 10, 'select\_kbest\_\_score\_func': <function f\_classif at
-0x000002443639F4C0>, {\ldots}
-4   \{'select\_kbest\_\_k': 11, 'select\_kbest\_\_score\_func': <function f\_classif at
-0x000002443639F4C0>, {\ldots}
-12  \{'select\_kbest\_\_k': 13, 'select\_kbest\_\_score\_func': <function f\_classif at
-0x000002443639F4C0>, {\ldots}
-8   \{'select\_kbest\_\_k': 12, 'select\_kbest\_\_score\_func': <function f\_classif at
-0x000002443639F4C0>, {\ldots}
-16  \{'select\_kbest\_\_k': 14, 'select\_kbest\_\_score\_func': <function f\_classif at
-0x000002443639F4C0>, {\ldots}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -2860,7 +3517,7 @@ K-Best}\label{attribute-reduction---support-vector-machine-with-select-k-best}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{88}{\boxspacing}
+\prompt{In}{incolor}{89}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{select\PYZus{}k\PYZus{}best} \PY{o}{=} \PY{n}{svm\PYZus{}pipeline\PYZus{}4\PYZus{}search}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
 \PY{n}{attributes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{attribute\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{feature\PYZus{}data}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{n}{select\PYZus{}k\PYZus{}best}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
@@ -2918,13 +3575,10 @@ For example, in electrical-engineering problems (where the voltage
 attribute is crucial) the data may suggest that voltage could/should be
 eliminated (for the purpose of increasing accuracy). If relied upon, the
 resultant model has the `best' accuracy, but it may inappropriate and/or
-unusable in the real world.\textbf{Comment:} When the Decision Tree was
-reduced with our manually-selected-attribute model, we note a relatively
-large drop in accuracy from \texttt{94.75\%} to \texttt{92.35\%}
-(\texttt{2.4\%}).
+unusable in the real world.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{89}{\boxspacing}
+\prompt{In}{incolor}{90}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Based on domain\PYZhy{}specific knowledge and the exploratory plots}
 \PY{n}{MANUALLY\PYZus{}SELECTED\PYZus{}ATTRIBUTES} \PY{o}{=} \PY{p}{[}
@@ -2970,31 +3624,79 @@ Attribute}\label{decision-tree-with-manually-selected-attribute}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{92}{\boxspacing}
+\prompt{In}{incolor}{93}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{dt\PYZus{}pipeline\PYZus{}1\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{92}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-    rank\_test\_score  mean\_test\_score  \textbackslash{}
-4                 1           0.9235
-2                 2           0.9215
-1                 2           0.9215
-3                 4           0.9205
-25                5           0.9175
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+\begin{minipage}[b]{0.03\columnwidth}\raggedleft
+\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedleft
+rank\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedleft
+mean\_test\_score\strut
+\end{minipage} & \begin{minipage}[b]{0.56\columnwidth}\raggedright
+params\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.9235\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+4\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.9215\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+2\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.9215\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+1\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+4\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.9205\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `gini', 'dt\_classifier\_\_max\_depth':
+3\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+25\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+5\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedleft
+0.9175\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 5\}\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
-                                                                    params
-4      \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 4\}
-2      \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 2\}
-1      \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 1\}
-3      \{'dt\_classifier\_\_criterion': 'gini', 'dt\_classifier\_\_max\_depth': 3\}
-25  \{'dt\_classifier\_\_criterion': 'entropy', 'dt\_classifier\_\_max\_depth': 5\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -3034,23 +3736,27 @@ Attributes}\label{svm-with-manually-selected-attributes}}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{96}{\boxspacing}
+\prompt{In}{incolor}{97}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{show\PYZus{}top\PYZus{}results}\PY{p}{(}\PY{n}{svm\PYZus{}pipeline\PYZus{}2\PYZus{}search}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
-            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{96}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-   rank\_test\_score  mean\_test\_score                                 params
-2                1           0.9295      \{'svm\_classifier\_\_kernel': 'rbf'\}
-0                2           0.9265   \{'svm\_classifier\_\_kernel': 'linear'\}
-1                2           0.9265     \{'svm\_classifier\_\_kernel': 'poly'\}
-3                4           0.5190  \{'svm\_classifier\_\_kernel': 'sigmoid'\}
-\end{Verbatim}
-\end{tcolorbox}
-        
+    \begin{longtable}[]{@{}rrrl@{}}
+\toprule
+& rank\_test\_score & mean\_test\_score & params\tabularnewline
+\midrule
+\endhead
+2 & 1 & 0.9295 & \{'svm\_classifier\_\_kernel': `rbf'\}\tabularnewline
+0 & 2 & 0.9265 & \{'svm\_classifier\_\_kernel':
+`linear'\}\tabularnewline
+1 & 2 & 0.9265 & \{'svm\_classifier\_\_kernel': `poly'\}\tabularnewline
+3 & 4 & 0.519 & \{'svm\_classifier\_\_kernel':
+`sigmoid'\}\tabularnewline
+\bottomrule
+\end{longtable}
+
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
