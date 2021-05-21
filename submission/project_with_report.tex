@@ -987,7 +987,7 @@ assumption above) the zero values will fall within the first category,
 shared by other values (relatively) close to zero.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{19}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{staging\PYZus{}data} \PY{o}{=} \PY{n}{create\PYZus{}discretised\PYZus{}col}\PY{p}{(}\PY{n}{staging\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{px\PYZus{}height}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{is\PYZus{}zero\PYZus{}its\PYZus{}own\PYZus{}category} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
 \end{Verbatim}
@@ -1239,7 +1239,7 @@ literally as the stated value).
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{29}{\boxspacing}
+\prompt{In}{incolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{c+c1}{\PYZsh{} Cleaned metadata}
 \PY{n}{cleaned\PYZus{}metadata} \PY{o}{=} \PY{n}{staging\PYZus{}metadata}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new\PYZus{}name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
@@ -1249,7 +1249,7 @@ literally as the stated value).
 \end{tcolorbox}
 
             \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
-\prompt{Out}{outcolor}{29}{\boxspacing}
+\prompt{Out}{outcolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
                              Explaination
 new\_name
@@ -1336,7 +1336,7 @@ See \texttt{Clean\ Data\ Profiling\ Report}, and
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
-\prompt{In}{incolor}{32}{\boxspacing}
+\prompt{In}{incolor}{33}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n}{melted\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{melt}\PY{p}{(}\PY{n}{discretised\PYZus{}ordered\PYZus{}data}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{discretised\PYZus{}ordered\PYZus{}data}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{is\PYZus{}expensive}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{columns}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{,} \PY{n}{value\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ordinal Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{)}
 
@@ -1534,42 +1534,42 @@ frozenset(\{`has\_touch\_screen'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `has\_three\_g', `has\_wifi',
-`screen\_width\_category\_(-0.019, 4.5{]}'\})\strut
+frozenset(\{`has\_three\_g', `has\_four\_g',
+`screen\_width\_category\_(-0.019, 4.5{]}', `has\_wifi'\})\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
 713\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `is\_expensive', `has\_three\_g',
-`ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5, 3998.0{]}',
+`has\_four\_g', `is\_expensive'\})\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
 714\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1\strut
 \end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
-frozenset(\{`clock\_speed\_category\_(0.497, 1.125{]}', `has\_four\_g',
-`has\_three\_g', `screen\_width\_category\_(-0.019, 4.5{]}'\})\strut
+frozenset(\{`has\_three\_g', `clock\_speed\_category\_(0.497, 1.125{]}',
+`has\_four\_g', `screen\_width\_category\_(-0.019, 4.5{]}'\})\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
 715\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.11\strut
 \end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
-frozenset(\{`px\_height\_category\_(-1.9609999999999999, 490.0{]}',
-`front\_cam\_resolution\_category\_(0.981, 5.5{]}', `has\_four\_g',
-`has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `front\_cam\_resolution\_category\_(0.981,
+5.5{]}', `has\_four\_g', `px\_height\_category\_(-1.9609999999999999,
+490.0{]}'\})\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
 716\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.105\strut
 \end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
-frozenset(\{`px\_height\_category\_(-1.9609999999999999, 490.0{]}',
-`has\_four\_g', `has\_three\_g', `screen\_width\_category\_(-0.019,
-4.5{]}'\})\strut
+frozenset(\{`has\_three\_g', `screen\_width\_category\_(-0.019, 4.5{]}',
+`has\_four\_g', `px\_height\_category\_(-1.9609999999999999,
+490.0{]}'\})\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
@@ -1631,7 +1631,7 @@ lift\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 0\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1644,9 +1644,9 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 1\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -1657,8 +1657,8 @@ frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 2\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `has\_three\_g', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5, 3998.0{]}',
+`has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1671,8 +1671,8 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 3\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_touch\_screen', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}',
+`has\_touch\_screen'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1699,7 +1699,7 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 5\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_wifi', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_wifi'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1712,8 +1712,8 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 6\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_bluetooth', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}',
+`has\_bluetooth'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1739,8 +1739,8 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 8\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
-frozenset(\{`has\_dual\_sim', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}',
+`has\_dual\_sim'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1755,7 +1755,7 @@ frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.40\columnwidth}\raggedright
 frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.23\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1635\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -1831,7 +1831,7 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 18\strut
 \end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
@@ -1846,7 +1846,7 @@ frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
 frozenset(\{`has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1375\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
@@ -1959,9 +1959,9 @@ lift\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 0\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -1988,7 +1988,7 @@ frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
 frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
-frozenset(\{`has\_dual\_sim', `is\_expensive'\})\strut
+frozenset(\{`is\_expensive', `has\_dual\_sim'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 0.115\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -1999,7 +1999,7 @@ frozenset(\{`has\_dual\_sim', `is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 3\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `ram\_category\_(3062.5, 3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
@@ -2012,8 +2012,8 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 4\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `has\_three\_g', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5, 3998.0{]}',
+`has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
@@ -2026,8 +2026,8 @@ frozenset(\{`is\_expensive'\})\strut
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 5\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
-frozenset(\{`has\_touch\_screen', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}',
+`has\_touch\_screen'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
 frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
@@ -2042,7 +2042,7 @@ frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
 frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_three\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 0.1635\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -2069,7 +2069,7 @@ frozenset(\{`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
 frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
+frozenset(\{`has\_three\_g', `has\_four\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -2082,7 +2082,7 @@ frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.37\columnwidth}\raggedright
 frozenset(\{`ram\_category\_(3062.5, 3998.0{]}'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.28\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `is\_expensive', `has\_three\_g'\})\strut
+frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.07\columnwidth}\raggedleft
@@ -2146,8 +2146,8 @@ lift\strut
 \end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
 frozenset(\{`has\_four\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-frozenset(\{`is\_expensive', `has\_three\_g', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`has\_three\_g', `ram\_category\_(3062.5, 3998.0{]}',
+`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
 0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
@@ -2160,12 +2160,11 @@ frozenset(\{`is\_expensive', `has\_three\_g', `ram\_category\_(3062.5,
 \end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
 frozenset(\{`has\_three\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `is\_expensive', `ram\_category\_(3062.5,
-3998.0{]}'\})\strut
+frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
-0.1165\strut
+0.1375\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-0.152988\strut
+0.180565\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 1.3132\strut
 \end{minipage}\tabularnewline
@@ -2174,11 +2173,12 @@ frozenset(\{`has\_four\_g', `is\_expensive', `ram\_category\_(3062.5,
 \end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
 frozenset(\{`has\_three\_g'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-frozenset(\{`has\_four\_g', `is\_expensive'\})\strut
+frozenset(\{`ram\_category\_(3062.5, 3998.0{]}', `has\_four\_g',
+`is\_expensive'\})\strut
 \end{minipage} & \begin{minipage}[t]{0.06\columnwidth}\raggedleft
-0.1375\strut
+0.1165\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-0.180565\strut
+0.152988\strut
 \end{minipage} & \begin{minipage}[t]{0.05\columnwidth}\raggedleft
 1.3132\strut
 \end{minipage}\tabularnewline
@@ -2623,8 +2623,8 @@ cluster of size 2 is the best way to split the data.
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-  4\%|███▋
-| 1/23 [00:00<00:03,  6.85it/s]
+  0\%|
+| 0/23 [00:00<?, ?it/s]
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -2635,7 +2635,7 @@ cluster of size 2 is the best way to split the data.
 
     \begin{Verbatim}[commandchars=\\\{\}]
 100\%|███████████████████████████████████████████████████████████████████████████
-██████████| 23/23 [00:06<00:00,  3.82it/s]
+██████████| 23/23 [00:06<00:00,  3.29it/s]
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -3039,16 +3039,6 @@ params\strut
 'dt\_classifier\_\_max\_depth': 15, 'pca\_\_n\_components': 18\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
-566\strut
-\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
-3\strut
-\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
-0.8385\strut
-\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
-\{'dt\_classifier\_\_criterion': `entropy',
-'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 16\}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.03\columnwidth}\raggedleft
 567\strut
 \end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
 3\strut
@@ -3057,6 +3047,16 @@ params\strut
 \end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
 \{'dt\_classifier\_\_criterion': `entropy',
 'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 17\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.03\columnwidth}\raggedleft
+566\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.12\columnwidth}\raggedleft
+0.8385\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 9, 'pca\_\_n\_components': 16\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.03\columnwidth}\raggedleft
 663\strut
@@ -3245,31 +3245,7 @@ params\strut
 \{'dt\_classifier\_\_criterion': `entropy',
 'dt\_classifier\_\_max\_depth': 8, 'select\_kbest\_\_k': 15,
 'select\_kbest\_\_score\_func': \textless function f\_classif at
-0x0000027B4261E5E0\textgreater\}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\raggedleft
-260\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-2\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-0.9515\strut
-\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
-\{'dt\_classifier\_\_criterion': `entropy',
-'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 17,
-'select\_kbest\_\_score\_func': \textless function f\_classif at
-0x0000027B4261E5E0\textgreater\}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.02\columnwidth}\raggedleft
-256\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-2\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
-0.9515\strut
-\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
-\{'dt\_classifier\_\_criterion': `entropy',
-'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 15,
-'select\_kbest\_\_score\_func': \textless function f\_classif at
-0x0000027B4261E5E0\textgreater\}\strut
+0x00000207300F1AF0\textgreater\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
 250\strut
@@ -3281,19 +3257,43 @@ params\strut
 \{'dt\_classifier\_\_criterion': `entropy',
 'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 12,
 'select\_kbest\_\_score\_func': \textless function f\_classif at
-0x0000027B4261E5E0\textgreater\}\strut
+0x00000207300F1AF0\textgreater\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
-336\strut
+260\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 17,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x00000207300F1AF0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+256\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
+0.9515\strut
+\end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
+\{'dt\_classifier\_\_criterion': `entropy',
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 15,
+'select\_kbest\_\_score\_func': \textless function f\_classif at
+0x00000207300F1AF0\textgreater\}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.02\columnwidth}\raggedleft
+248\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
 5\strut
 \end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedleft
 0.951\strut
 \end{minipage} & \begin{minipage}[t]{0.70\columnwidth}\raggedright
 \{'dt\_classifier\_\_criterion': `entropy',
-'dt\_classifier\_\_max\_depth': 8, 'select\_kbest\_\_k': 17,
+'dt\_classifier\_\_max\_depth': 6, 'select\_kbest\_\_k': 11,
 'select\_kbest\_\_score\_func': \textless function f\_classif at
-0x0000027B4261E5E0\textgreater\}\strut
+0x00000207300F1AF0\textgreater\}\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
@@ -3384,7 +3384,7 @@ Tree}\label{attribute-selection---with-information-gain-prior-to-decision-tree}}
 \end{tcolorbox}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Number of Attributes: 10
+Number of Attributes: 17
     \end{Verbatim}
 
     \begin{center}
@@ -3456,7 +3456,7 @@ params\strut
 0.9915\strut
 \end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
 \{'select\_kbest\_\_k': 10, 'select\_kbest\_\_score\_func':
-\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+\textless function f\_classif at 0x00000207300F1AF0\textgreater,
 'svm\_classifier\_\_kernel': `linear'\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
@@ -3467,7 +3467,7 @@ params\strut
 0.9915\strut
 \end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
 \{'select\_kbest\_\_k': 11, 'select\_kbest\_\_score\_func':
-\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+\textless function f\_classif at 0x00000207300F1AF0\textgreater,
 'svm\_classifier\_\_kernel': `linear'\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
@@ -3478,7 +3478,7 @@ params\strut
 0.991\strut
 \end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
 \{'select\_kbest\_\_k': 13, 'select\_kbest\_\_score\_func':
-\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+\textless function f\_classif at 0x00000207300F1AF0\textgreater,
 'svm\_classifier\_\_kernel': `linear'\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
@@ -3489,7 +3489,7 @@ params\strut
 0.9905\strut
 \end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
 \{'select\_kbest\_\_k': 12, 'select\_kbest\_\_score\_func':
-\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+\textless function f\_classif at 0x00000207300F1AF0\textgreater,
 'svm\_classifier\_\_kernel': `linear'\}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.02\columnwidth}\raggedleft
@@ -3500,7 +3500,7 @@ params\strut
 0.9905\strut
 \end{minipage} & \begin{minipage}[t]{0.67\columnwidth}\raggedright
 \{'select\_kbest\_\_k': 14, 'select\_kbest\_\_score\_func':
-\textless function f\_classif at 0x0000027B4261E5E0\textgreater,
+\textless function f\_classif at 0x00000207300F1AF0\textgreater,
 'svm\_classifier\_\_kernel': `linear'\}\strut
 \end{minipage}\tabularnewline
 \bottomrule
